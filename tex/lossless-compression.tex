@@ -1,0 +1,199 @@
+\section{Lossless Data Compression}
+``Today is a Wednesday'' is a sequence of letters, which can be converted into
+bytes (8 bits) via \cref{fig:ascii}.
+\begin{figure}
+    \begin{tabular}{lllclllclllclll}\toprule
+        \textbf{Dec} & \textbf{Hex} & \textbf{Char}       &  & \textbf{Dec} & \textbf{Hex} & \textbf{Char} &  & \textbf{Dec} & \textbf{Hex} & \textbf{Char} &  & \textbf{Dec} & \textbf{Hex} & \textbf{Char} \\\cmidrule{1-3}\cmidrule{5-7}\cmidrule{9-11}\cmidrule{13-15}
+        000          & 000          & Null                &  & 032          & 020          & Space         &  & 064          & 040          & \char64       &  & 096          & 060          & \char96       \\
+        001          & 001          & Start of Heading    &  & 033          & 021          & \char33       &  & 065          & 041          & \char65       &  & 097          & 061          & \char97       \\
+        002          & 002          & Start of Text       &  & 034          & 022          & \char34       &  & 066          & 042          & \char66       &  & 098          & 062          & \char98       \\
+        003          & 003          & End of Text         &  & 035          & 023          & \char35       &  & 067          & 043          & \char67       &  & 099          & 063          & \char99       \\
+        004          & 004          & End of Transmission &  & 036          & 024          & \char36       &  & 068          & 044          & \char68       &  & 100          & 064          & \char100      \\
+        005          & 005          & Enquiry             &  & 037          & 025          & \char37       &  & 069          & 045          & \char69       &  & 101          & 065          & \char101      \\
+        006          & 006          & Acknowledgement     &  & 038          & 026          & \char38       &  & 070          & 046          & \char70       &  & 102          & 066          & \char102      \\
+        007          & 007          & Bell                &  & 039          & 027          & \char39       &  & 071          & 047          & \char71       &  & 103          & 067          & \char103      \\
+        008          & 008          & Backspace           &  & 040          & 028          & \char40       &  & 072          & 048          & \char72       &  & 104          & 068          & \char104      \\
+        009          & 009          & Horizontal Tab      &  & 041          & 029          & \char41       &  & 073          & 049          & \char73       &  & 105          & 069          & \char105      \\
+        010          & 00a          & Line Feed           &  & 042          & 02a          & \char42       &  & 074          & 04a          & \char74       &  & 106          & 06a          & \char106      \\
+        011          & 00b          & Vertical Tab        &  & 043          & 02b          & \char43       &  & 075          & 04b          & \char75       &  & 107          & 06b          & \char107      \\
+        012          & 00c          & Form Feed           &  & 044          & 02c          & \char44       &  & 076          & 04c          & \char76       &  & 108          & 06c          & \char108      \\
+        013          & 00d          & Carriage Return     &  & 045          & 02d          & \char45       &  & 077          & 04d          & \char77       &  & 109          & 06d          & \char109      \\
+        014          & 00e          & Shift Out           &  & 046          & 02e          & \char46       &  & 078          & 04e          & \char78       &  & 110          & 06e          & \char110      \\
+        015          & 00f          & Shift In            &  & 047          & 02f          & \char47       &  & 079          & 04f          & \char79       &  & 111          & 06f          & \char111      \\
+        016          & 010          & Data Link Escape    &  & 048          & 030          & \char48       &  & 080          & 050          & \char80       &  & 112          & 070          & \char112      \\
+        017          & 011          & Device Control 1    &  & 049          & 031          & \char49       &  & 081          & 051          & \char81       &  & 113          & 071          & \char113      \\
+        018          & 012          & Device Control 2    &  & 050          & 032          & \char50       &  & 082          & 052          & \char82       &  & 114          & 072          & \char114      \\
+        019          & 013          & Device Control 3    &  & 051          & 033          & \char51       &  & 083          & 053          & \char83       &  & 115          & 073          & \char115      \\
+        020          & 014          & Device Control 4    &  & 052          & 034          & \char52       &  & 084          & 054          & \char84       &  & 116          & 074          & \char116      \\
+        021          & 015          & Negative            &  & 053          & 035          & \char53       &  & 085          & 055          & \char85       &  & 117          & 075          & \char117      \\
+        022          & 016          & Synchronous Idle    &  & 054          & 036          & \char54       &  & 086          & 056          & \char86       &  & 118          & 076          & \char118      \\
+        023          & 017          & End of Trans. Block &  & 055          & 037          & \char55       &  & 087          & 057          & \char87       &  & 119          & 077          & \char119      \\
+        024          & 018          & Cancel              &  & 056          & 038          & \char56       &  & 088          & 058          & \char88       &  & 120          & 078          & \char120      \\
+        025          & 019          & End of Medium       &  & 057          & 039          & \char57       &  & 089          & 059          & \char89       &  & 121          & 079          & \char121      \\
+        026          & 01a          & Substitute          &  & 058          & 03a          & \char58       &  & 090          & 05a          & \char90       &  & 122          & 07a          & \char122      \\
+        027          & 01b          & Escape              &  & 059          & 03b          & \char59       &  & 091          & 05b          & \char91       &  & 123          & 07b          & \char123      \\
+        028          & 01c          & File Separator      &  & 060          & 03c          & \char60       &  & 092          & 05c          & \char92       &  & 124          & 07c          & \char124      \\
+        029          & 01d          & Group Separator     &  & 061          & 03d          & \char61       &  & 093          & 05d          & \char93       &  & 125          & 07d          & \char125      \\
+        030          & 01e          & Record Separator    &  & 062          & 03e          & \char62       &  & 094          & 05e          & \char94       &  & 126          & 07e          & \char126      \\
+        031          & 01f          & Unit Separator      &  & 063          & 03f          & \char63       &  & 095          & 05f          & \char95       &  & 127          & 07f          & \char127      \\
+    \end{tabular}
+    \caption{ASCII code for characters.}
+    \label{fig:ascii}
+\end{figure}
+
+One may ask if this is optimal. In fact, if using only English words, then we
+need only
+
+\[2^5 = 32 < 26 \times 2 = 52 < 64 = 2^6\]
+
+6 bits.
+
+\savenotes
+\begin{definition}[Lossless Compression]
+    Let $\mathcal{X}$ denote some alphabet, and let $f$ and $g$ be functions:
+
+    \[\mathcal{X} \xrightarrow[\text{compressor}]{f} \set{0, 1}^* \xrightarrow[\text{decompressor}]{g} \mathcal{X}\]
+
+    where $\set{0, 1}^*$ is the set of all binary strings (including the empty
+    string)\footnote{The * is called the Kleene Star.}. The functions $f$ and $g$
+    are also often called the \emph{encoder} and \emph{decoder}, respectively.
+
+    We say that $f$ and $g$ form a \emph{lossless compression scheme} if
+    $g \composedwith f \identically I_{\mathcal{X}}$ is the identity function
+    on the alphabet. For each $x \in \mathcal{X}$, we call $f(x)$ the \emph{code
+        word} or \emph{encoding} of $x$ and refer to the set $f(X)$ as the \emph{code
+        book}.
+\end{definition}
+\spewnotes
+
+\begin{definition}[Length of a Code Word]
+    The length of a code word $\omega \in \set{0, 1}^*$ is the number of bits
+    in $\omega$ and is denoted $\length{\omega}$. Note that
+    \[\ell: \set{0, 1}^* \to \naturals\]
+\end{definition}
+
+Notice that, given an alphabet $\mathcal{X}$, the maximal length of a compression
+must be $\log{\card{\mathcal{X}}}$, by the pigeonhole principle: enumerate the alphabet
+of $\mathcal{X}$, say $\mathcal{X} = \set{x_1, x_2, \dots, x_n}$. Then we can map
+\begin{align*}
+    x_1 & \to \emptyset \\
+    x_2 & \to 0         \\
+    x_3 & \to 1         \\
+    x_4 & \to 00        \\
+        & \vdots
+\end{align*}
+and clearly our maximum length is $\log{\card{\mathcal{X}}}$. However, given a
+distribution (a list of frequencies of the occurrences of the alphabet), we can
+reduce the \emph{expected} code word length.
+
+\begin{example}
+    Say $\mathcal{X} = \set{a, b, c, d}$. Of course, we can map
+    \[a \to 00 \quad b \to 01 \quad c \to 10 \quad d \to 11\]
+    and our expected codeword length will obviously be 2. On the other hand,
+    say our alphabet has the following frequencies
+    \begin{table}[H]
+        \centering
+        \begin{tabular}{l l}
+            Character & Frequency    \\\toprule
+            $a$       & \sfrac{1}{2} \\
+            $b$       & \sfrac{1}{8} \\
+            $c$       & \sfrac{1}{4} \\
+            $d$       & \sfrac{1}{8}
+        \end{tabular}
+    \end{table}
+    We can map
+    \[a \to 0 \quad b \to 110 \quad c \to 10 \quad d \to 111\]
+    (called a variable length encoding, in constrast to the fixed length encoding
+    given above), and see that our expected codeword length is
+    \[\frac{1}{2} \cdot 1 + \frac{1}{8} \cdot 3 + \frac{1}{4} \cdot 2 + \frac{1}{8} \cdot 3 = \frac{7}{4} < 2\]
+    i.e., we can do better than 2 bits per character.
+\end{example}
+
+In general, we determine the frequency of letters empirically, which we then
+model by a probability distribution. Our objective is to minimize both $\sup\length{f(\mathcal{X}}$ and $\expectation{\length{f(\mathcal{X})}}$. In fact, there is an optimal compressor
+$f^*$ which minimizes both. The core idea is to assign shorter code words to more
+frequently occurring characters.
+
+\begin{theorem}[Optimal Compressor]
+    \label{thm:optcomp}
+    Let $\mathcal{X}$ be an alphabet. Without loss of generality, say
+    \[\mathcal{X} = \set{1, 2, \dots, n}\]
+    and that $\prob[X]{i} \geq \prob[X]{i + 1}$, i.e., that the frequencies
+    are in decreasing order. Then
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\length{f^*(i)} = \floor{\log{i}}$
+        \item For all $k$ and any encoder $f$,
+              \[\prob{\length{f(x)} \leq k} \leq \prob{\length{f^*(x)} \leq k}\]
+    \end{enumerate}
+\end{theorem}
+
+\begin{example}[Telegraph and Morse Code]
+    TBD
+\end{example}
+
+First, we show the following lemma
+\begin{lemma}
+    Let $Z$ be a positive integer valued random variable with finite expectation.
+    Then $\entropy{Z} \leq \expectation{Z}\entropy{\frac{1}{\expectation{Z}}}$.
+\end{lemma}
+
+\begin{proof}
+    Let $Q_p$ denote the geometric distribution with parameter $p$, i.e., $Q_p$
+    is the distribution with positive integer random variable $X$ given by
+    \[\prob{X = i} = p(1 - p)^{i-1}\]
+    and recall that
+    \[\entropy{Q_p} = \frac{\binentropy{p}}{p}\]
+    The relative entropy from $Q$ to $P$, $\relentropy{P}{Q}$, is given by
+    \[\relentropy{P}{Q} = \sum_{\omega\in\Omega}P(\omega)\log{\frac{P(\omega)}{Q(\omega)}}\]
+    Notice that
+    \begin{align*}\relentropy{P}{Q}
+         & = \sum_{\omega\in\Omega}P(\omega)\log{\frac{P(\omega)}{Q(\omega)}}                                                \\
+         & = \sum_{\omega\in\Omega}P(\omega)\log{P(\omega)} - \sum_{\omega\in\Omega}P(\omega)\log{Q(\omega)}                 \\
+         & = \sum_{\omega\in\Omega}P(\omega)\log\frac{1}{Q(\omega)} - \sum_{\omega\in\Omega}P(\omega)\log\frac{1}{P(\omega)} \\
+         & = \entropy{P, Q} - \entropy{P}
+    \end{align*}
+    where
+    \[\entropy{P, Q} = \sum_{\omega\in\Omega}P(\omega)\log\frac{1}{Q(\omega)}\]
+    is the cross-entropy of $P$ and $Q$. Further, $\relentropy{P}{Q} \geq 0$: since
+    $\log$ is concave, we must have
+
+    \begin{align*}\relentropy{P}{Q}
+         & = \sum_{\omega\in\Omega}P(\omega)\log{\frac{P(\omega)}{Q(\omega)}}                \\
+         & = -\sum_{\omega\in\Omega}P(\omega)\log{\frac{Q(\omega)}{P(\omega)}}               \\
+         & \geq -\log\left(\sum_{\omega\in\Omega}P(\omega)\frac{Q(\omega)}{P(\omega)}\right) \\
+         & = -\log\left(\sum_{\omega\in\Omega}Q(\omega)\right)                               \\
+         & \geq -\log{1}                                                                     \\
+         & = 0
+    \end{align*}
+
+    Now, set $p = \sfrac{1}{\expectation{Z}}$\footnote{
+        Since $\expectation{Z} < \infty$ and $Z$ is positive-valued, it is easy to see that
+        \[\expectation{Z} = \sum_{z = 1}^{\infty}z\prob{Z = z} \geq \sum_{z = 1}^{\infty}\prob{Z = z} = 1\]
+        hence $Q_{\sfrac{1}{\expectation{Z}}}$ is a well-defined distribution.} and
+    notice that
+    \begin{align*}\entropy{Z, Q_p}
+         & = \sum_{z=1}^{\infty}P(z)\log\frac{1}{p(1-p)^z}                                            \\
+         & = \sum_{z=1}^{\infty}P(z)\left(\log\frac{1}{p} + z\log\frac{1}{1 - p}\right)               \\
+         & = \log\frac{1}{p}\sum_{z = 1}^{\infty}P(z) + \log\frac{1}{1 - p}\sum_{z = 1}^{\infty}zP(Z) \\
+         & = \log\frac{1}{p} + \log\frac{1}{1 - p}\expectation{Z}                                     \\
+         & = \log\frac{1}{p} + \frac{1}{p}\log\frac{1}{1 - p}                                         \\
+         & = \entropy{Q_p}                                                                            \\
+         & = \expectation{Z}\binentropy{\frac{1}{\expectation{Z}}}
+    \end{align*}
+
+    Now, since $\relentropy{P}{Q} \geq 0$, we conclude that
+
+    \begin{align*}\relentropy{Z}{Q_p}
+         & = \entropy{Z, Q_p} - \entropy{Z}                                      \\
+         & = \entropy{Q_p} - \entropy{Z}                                         \\
+         & = \expectation{Z}\binentropy{\frac{1}{\expectation{Z}}} - \entropy{Z}
+    \end{align*}
+    is greater than or equal to 0, hence
+    \[\entropy{Z} \leq \expectation{Z}\binentropy{\frac{1}{\expectation{Z}}}\qedhere\]
+\end{proof}
+
+Now, we prove \cref{thm:optcomp}.
+
+\begin{proof}
+
+\end{proof}
