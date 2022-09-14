@@ -77,7 +77,7 @@ As an abuse of notation, we write $\prob{\omega}$ and $\prob{\set{\omega}}$ inte
 Notice that $X$ induces a distribution on $\mathcal{X}$. For any $x \in \mathcal{X}$
 \[\prob[X]{x} = \prob{\set{\omega \suchthat X(\omega) = x}}\]
 In many cases, $(X. \Pr_x)$ captures all information needed from random variable $X$.
-We write $X \drawsfrom \Pr_x$ to indicate that $X$ has distribution $\Pr_x$ on $\mathcal{X}$.
+We write $X \drawnfrom \Pr_x$ to indicate that $X$ has distribution $\Pr_x$ on $\mathcal{X}$.
 
 \begin{example}[52 Card Deck]
     TBD
@@ -226,9 +226,9 @@ If $X$ and $Y$ are independent, we have the following
 
 \begin{definition}
     A sequence of random variables $X_1$, $X_2$, \dots, $X_n$ is independent and
-    identically distributed from $\Pr_X$ (i.i.d $\drawsfrom \Pr_X$) if
+    identically distributed from $\Pr_X$ (i.i.d $\drawnfrom \Pr_X$) if
     \begin{enumerate}[label=(\arabic*)]
-        \item for all $i$, $X_i \drawsfrom \Pr_x$
+        \item for all $i$, $X_i \drawnfrom \Pr_x$
         \item $X_1$, $X_2$, \dots, $X_n$ are mutually independent, i.e., for any
               $\set{i_1, i_2, \dots, i_k} \subseteq \set{1, 2, \dots, n}$
               \[\prob{X_{i_1}X_{i_2} \dots X_{i_k}} = \prob{X_{i_1}}\prob{X_{i_2}} \dots \prob{X_{i_k}}\]

@@ -168,7 +168,7 @@ An empirical justification for the use of $\log_2$.
     The Entropy function satisfies
     \begin{enumerate}[label=(\arabic*)]
         \item $\entropy{X} \geq 0$ with equality if and only if $X$ is constant
-        \item if $X$ is finite, then $\entropy{X} \leq \log\card{\mathcal{X}}$ with
+        \item if $\mathcal{X}$ is finite, then $\entropy{X} \leq \log\card{\mathcal{X}}$ with
               equality if and only if $\Pr_X$ is uniform on $\mathcal{X}$
         \item For any injective $f$, $\entropy{X} = \entropy{f(X)}$
         \item $\Pr \to \entropy{\Pr}$ is strictly concave
@@ -176,5 +176,27 @@ An empirical justification for the use of $\log_2$.
 \end{theorem}
 
 \begin{proof}\mbox{}
-
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\entropy{X} = \expectation{\log\frac{1}{\Pr_X}} \geq 0$
+              with equality if and only if $\log\frac{1}{\Pr_X} = 0$, which occurs
+              only when $\Pr_X \identically 1$.
+        \item If $\mathcal{X}$ is finite, then
+              \begin{align*}\entropy{X}
+                   & = \expectation{\log\frac{1}{\Pr_X}}             \\
+                   & \leq \log\expectation{\frac{1}{\Pr_X}}          \\
+                   & = \log\sum_{x \in X} \prob{x}\frac{1}{\prob{X}} \\
+                   & = \log\card{\mathcal{X}}
+              \end{align*}
+              with equality if and only if $\log\frac{1}{\Pr_x}$ is constant, which
+              forces $\prob{X} = \frac{1}{\card{\mathcal{X}}}$.
+        \item If $f$ is injective, then $\prob[f(X)]{f(x)} = \prob[X]{x}$, and
+              the result follows.
+        \item Take $\lambda \in [0, 1]$ and write $f(x) = x\log\frac{1}{x}$, then
+              \begin{align*}\entropy{\lambda\Pr_1 + (1 - \lambda)\Pr_2}
+                   & = \sum_{\omega \in \Omega}f\left(\lambda\prob[1]{\omega} + (1 - \lambda)\prob[2]{\omega}\right)                                        \\
+                   & \geq \sum_{\omega \in \Omega}\lambda f\left(\prob[1]{\omega}\right) + (1 - \lambda)f\left(\prob[2]{\omega}\right)                      \\
+                   & = \lambda\sum_{\omega \in \Omega} f\left(\prob[1]{\omega}\right) + (1 - \lambda)\sum_{\omega \in \Omega}f\left(\prob[2]{\omega}\right) \\
+                   & = \lambda \entropy{\Pr_1} + (1 - \lambda)\entropy{\Pr_2}\qedhere
+              \end{align*}
+    \end{enumerate}
 \end{proof}

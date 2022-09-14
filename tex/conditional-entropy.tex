@@ -1,0 +1,42 @@
+\section{Conditional Entropy}
+\begin{definition}[Joint Entropy]
+    Given random variables $X$ and $Y$, the \emph{Joint Entropy}, $\entropy{XY}$,
+    is defined
+    \[\entropy{XY} = \expectation{\log\frac{1}{\Pr_{XY}}} = \sum_{x\in X}\sum_{y\in Y}\prob[XY]{X = x, Y = y}\log\frac{1}{\prob[XY]{X = x, Y = y}}\]
+\end{definition}
+
+\begin{definition}[Conditional Entropy]
+    Let $X$ and $Y$ be random variables. Then
+    \[\entropy{X \given Y} = \expectation[y \drawnfrom \Pr_Y]{\entropy{\Pr_{X \given Y = y}}} = \expectation{\log\frac{1}{\Pr_{X \given Y}}}\]
+\end{definition}
+
+This can be thought of as the expected uncertainty $\entropy{\Pr_{X \given Y = y}}$
+over $y \drawnfrom \Pr_Y$.
+
+\begin{definition}[Conditional Probability Notation]
+    Some notation:
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\Pr_{X \given Y = y}$ is a distribution on $X$, with
+              \begin{align*}\prob[X \given Y = y]{x}
+                   & = \prob{X = x \given Y = y}                \\
+                   & = \frac{\prob{X = x, Y = y}}{\prob{Y = y}}
+              \end{align*}
+        \item $\Pr_{X \given Y}$ is a random variable on $\mathcal{X} \times \mathcal{Y}$ with
+              \[\prob[X \given Y]{x, y} = \prob{X = x \given Y = y}\]
+    \end{enumerate}
+\end{definition}
+
+\begin{example}[Joint and Conditional Entropy of a Fair Die]
+    TBD
+\end{example}
+
+\begin{theorem}[Properties of Conditional Entropy]
+    Let $X$ and $Y$ be random variables. Then
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\entropy{X \given Y} \leq \entropy{X}$ with equality if and only if
+              $X$ and $Y$ are independent
+        \item $\entropy{XY} = \entropy{Y} + \entropy{X \given Y} \leq \entropy{Y} + \entropy{X}$
+              with equality if and only if $X$ and $Y$ are independent
+        \item $\entropy{XY} \geq \max\set{\entropy{X}, \entropy{Y}}$
+    \end{enumerate}
+\end{theorem}
