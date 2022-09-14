@@ -139,6 +139,7 @@ An empirical justification for the use of $\log_2$.
 \end{definition}
 
 \begin{example}
+    Notice
     \begin{enumerate}[label=(\arabic*)]
         \item The function $x \to x\log{x}$ is strictly convex
         \item The function $x \to \log{x}$ is strictly concave
@@ -155,5 +156,25 @@ An empirical justification for the use of $\log_2$.
 \end{theorem}
 
 \begin{proof}
+    Since $f$ is convex,
+    \begin{align*}f\left(\expectation{X}\right)
+         & = f\left(\sum_{x \in X}x\prob{X = x}\right)                                                  \\
+         & \leq \sum_{x \in X}f(x)\prob{X = x}\hbox{ since $f$ is convex and $\prob{X = x} \in [0, 1]$} \\
+         & = \expectation{f(X)}\qedhere
+    \end{align*}
+\end{proof}
+
+\begin{theorem}[Properties of Entropy]
+    The Entropy function satisfies
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\entropy{X} \geq 0$ with equality if and only if $X$ is constant
+        \item if $X$ is finite, then $\entropy{X} \leq \log\card{\mathcal{X}}$ with
+              equality if and only if $\Pr_X$ is uniform on $\mathcal{X}$
+        \item For any injective $f$, $\entropy{X} = \entropy{f(X)}$
+        \item $\Pr \to \entropy{\Pr}$ is strictly concave
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}\mbox{}
 
 \end{proof}
