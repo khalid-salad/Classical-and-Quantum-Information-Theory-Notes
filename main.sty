@@ -52,19 +52,31 @@
 \usepackage{xfrac}
 \UseCollection{xfrac}{plainmath}
 
+% Temporary fix until xfrac package is fixed
+\renewcommand{\sfrac}[2]{#1/#2}
+
 % Improved formatting for \left ... \right pairs
 \usepackage{mleftright}
 \mleftright
 
 % Theorem environment setup
-\usepackage{tcolorbox}
-\usepackage{amssymb, xcolor}
+\usepackage{tikz, amssymb, tcolorbox}
+\usepackage{xcolor}
 \theoremstyle{definition}
-\newtheorem{example}{Example}[chapter]
-\newtheorem{exercise}{Exercise}[chapter]
-\newtheorem{wexercise}{Worked Exercise}[chapter]
+% Exercise environment --- optional argument in brackets adds number of
+% points to title
+\usetikzlibrary{positioning}
+\tcbuselibrary{theorems, skins, breakable}
+% Exercise environment --- optional argument in brackets adds number of
+% points to title
+\newcounter{exercise}[section]
+\newtcbtheorem{exercisebase}{\stepcounter{exercise}Exercise~\arabic{exercise}}{breakable,
+colframe=red!35!black,fonttitle=\bfseries, separator sign={ }}{exe}
+\newenvironment{exercise}[1][]{%
+    \begin{exercisebase*}{\ifthenelse{\equal{#1}{}}{}{(#1 Points)}}{}}{\end{exercisebase*}}
+\newtheorem{wexercise}{Worked Exercise}[section]
 \theoremstyle{plain}
-\newtheorem{statement}{Statement}[chapter]
+\newtheorem{statement}{Statement}[section]
 \tcbuselibrary{skins, breakable, minted, listings, most}
 \tcbset{shield externalize}
 
@@ -79,11 +91,12 @@
                 {\thmname{#1}\thmnumber{ #2}\thmnote{ $\blacktriangleright$ #3}\\*[-1.5ex]}% 〈Theorem head spec (can be left empty, meaning ‘normal’ )〉
 
 \theoremstyle{tcb-drop-in-thm}
-\newtheorem{theorem}{Theorem}[chapter]
+\newtheorem{theorem}{Theorem}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{corollary}[theorem]{Corollary}
-\newtheorem{problem}{Problem}[chapter]
-\newtheorem{definition}{Definition}[chapter]
+\newtheorem{problem}{Problem}[section]
+\newtheorem{definition}{Definition}[section]
+\newtheorem{example}{Example}[section]
 
 \tcolorboxenvironment{theorem}{%
     colback=gray!25,
@@ -144,6 +157,17 @@ overlay={\begin{tcbclipinterior}
     \fill[blue!35!black] (frame.north west)rectangle ([yshift=-5.5mm]frame.north east);
         \end{tcbclipinterior}}
 }
+
+\tcolorboxenvironment{example}{%
+colback=green!5,
+colframe=green!35!black,
+enhanced,
+top=0mm,
+overlay={\begin{tcbclipinterior}
+    \fill[green!35!black] (frame.north west)rectangle ([yshift=-5.5mm]frame.north east);
+        \end{tcbclipinterior}}
+}
+
 
 % Footnote stuff for theorem boxes. If footnote in theorem, place \savenotes before
 % environment and \spewnotes after.
@@ -232,6 +256,8 @@ overlay={\begin{tcbclipinterior}
 \pgfplotsset{compat=newest}
 \usetikzlibrary{shapes, shapes.misc, decorations, fit, backgrounds, positioning, patterns, shadows, calc, arrows, arrows.meta, trees}
 \tikzset{>={Latex[width=2mm,length=2mm]}}
+\usetikzlibrary{external}
+\tikzexternalize[prefix=tikzimages/]
 \newcommand\DoubleLine[7][4pt]{%
     \path(#2)--(#3)coordinate[at start](h1)coordinate[at end](h2);
     \draw[#4]($(h1)!#1!90:(h2)$)-- node [auto=left] {#5} ($(h2)!#1!-90:(h1)$); 
@@ -254,7 +280,35 @@ overlay={\begin{tcbclipinterior}
 % Solution environment
 \newenvironment{solution}{\begin{proof}[\textnormal{\textbf{Solution}}]}{\end{proof}}
 
+\renewcommand{\Pr}{\mathbb{P}}
+\DeclareMathOperator{\var}{Var}
+\NewDocumentCommand{\prob}{o m}{\IfValueTF{#1}{\operatorname{\Pr}_{#1}}{\operatorname{\Pr}}\left(#2\right)}
+\NewDocumentCommand{\expectation}{o m}{\IfValueTF{#1}{\operatorname{\underset{\scriptscriptstyle#1}{\mathbb{E}}}}{\operatorname{\mathbb{E}}}\left[#2\right]}
+% \newcommand{\expectation}[1]{\operatorname{\mathbb{E}}\left[#1\right]}
+\newcommand{\variance}[1]{\operatorname{\var}\left[#1\right]}
+\newcommand{\covariance}[2]{\operatorname{cov}\left(#1,#2\right)}
+\newcommand{\given}{\mid}
+\newcommand{\divides}{\mid}
+\newcommand{\drawsfrom}{\sim}
+\newcommand{\indicator}[1]{\ensuremath{1_{#1}}}
 
+\newcommand{\naturals}{\ensuremath{\mathbb{N}}}
+\newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\isomorphic}{\cong}
+\renewcommand{\vec}[1]{\ensuremath{\mathbf{#1}}}
+
+\newcommand{\entropy}[1]{\ensuremath{H\left(#1\right)}}
+\newcommand{\binentropy}[1]{\ensuremath{h\left(#1\right)}}
+\newcommand{\sampleavg}[1]{\ensuremath{\hat{#1}}}
+\newcommand{\relentropy}[2]{\ensuremath{D\left(#1 \parallel #2\right)}}
+\newcommand{\identically}{\equiv}
+
+
+% Todo stuff
+\usepackage{todonotes}
+\makeatletter
+\renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
+\makeatother
 % BELOW SHOULD ALWAYS BE AT END OF PREAMBLE
 % hyperlinks in document
 \usepackage[colorlinks=true, final]{hyperref}

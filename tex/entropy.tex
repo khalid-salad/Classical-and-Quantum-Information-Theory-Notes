@@ -1,0 +1,159 @@
+\section{Entropy}
+
+\begin{definition}[Entropy]
+    \label{def:entropy}
+    Let $\Pr$ be a probability distribution on a discrete space $\Omega$. The
+    Shannon Entropy (hereby simply Entropy) of $\Pr$ is defined
+    \[\entropy{\Pr} = \sum_{\omega \in \Omega}\prob{\omega}\log\frac{1}{\prob{\omega}}\]
+    If $X$ is a discrete random variable, we define
+    \begin{align*}\entropy{X}
+         & = \entropy{\Pr_X}                                    \\
+         & = \sum_{x \in X}\prob[X]{x}\log\frac{1}{\prob[X]{x}} \\
+         & = \expectation{\log\frac{1}{\prob[X]{X}}}
+    \end{align*}
+    noting that $\log\frac{1}{\prob[X]{X}}$ is a real random variable.
+\end{definition}
+
+We can think of $\log\frac{1}{\prob[X]{x}}$ as the level of ``surprise'' that
+$X = x$ occurs and $\entropy{X}$ as the uncertainty or randomness of $\Pr_X$.
+
+Note that, in \cref{def:entropy}, $\log$ refers to $\log_2$, and $\log_2(X)$ is
+the number of bits of $X$. Additionally, since a byte is 8 bits, $\log_{256}(X)$
+is the number of bytes of $X$. Additionally, we define $0\log\frac{1}{0} = 0$,
+which can be motivated by the fact that
+
+\[\lim_{x\to0^+}x\log\frac{1}{x} = 0\]
+
+\begin{example}[Bernoulli Distribution]
+    The Bernoulli Distribution is the discrete random variable
+    \begin{align*}
+        \prob{X = 1} & = p     \\
+        \prob{X = 0} & = 1 - p
+    \end{align*}
+    and has entropy
+    \[\entropy{X} = p\log\frac{1}{p} + (1 - p)\log\frac{1}{1 - p}\]
+\end{example}
+
+\begin{definition}[Binary Entropy]
+    The binary entropy of $p$, $\binentropy{p}$, is the entropy of the Bernoulli Distribution with
+    parameter $p$, i.e.,
+    \[\binentropy{p} = p\log\frac{1}{p} + (1 - p)\log\frac{1}{1 - p}\]
+\end{definition}
+
+Notice that $\binentropy{0} = \binentropy{1} = 0$ and $\binentropy{\frac{1}{2}} = 1$.
+More generally, the graph of $\binentropy{p}$ is given in \cref{fig:binentryopy}.
+
+\begin{figure}
+    \centering
+    \tikzsetnextfilename{binentryopy}
+    \begin{tikzpicture}[scale=1]
+        \begin{axis}[
+                axis lines = left,
+                x label style={at={(axis description cs:0.5,-0.1)}},
+                xlabel = $p$,
+                ylabel = $\binentropy{p}$,
+                xmin = 0,
+                ymin = 0,
+                xmax = 1,
+                ymax = 1,
+                xtick = {0.5},
+                xticklabels = {$\sfrac{1}{2}$},
+                ytick = {1},
+                % xmajorticks=false,
+                % ymajorticks=false,
+            ]
+            \addplot [
+                domain=0:1,
+                samples=10000,
+                color=red,
+                thick,
+            ]
+            {- x * ln(x) / ln(2) + -(1 - x) * ln(1 - x) / ln(2)}
+            node [pos=0.5, above] (m) {most random};
+        \end{axis}
+    \end{tikzpicture}
+    \todo[inline]{add some flourishes}
+    \caption{Binary Entropy as a function of $p$. Notice that the entropy is
+        maximized when $p = \sfrac{1}{2}$ and 0 when $p = 0$ or $p = 1$. When $p = 0$
+        or $p = 1$, the Bernoulli Distribution is non-random, and thus there is no
+        uncertainty.}
+    \label{fig:binentryopy}
+\end{figure}
+
+\begin{example}[Geometric Distribution]
+    The Geometric Distribution is the positive, integer-valued random variable
+    that describes the number of Bernoulli trials performed until a success. That
+    is,
+    \[\prob{X = k} = p(1 - p)^{k - 1}\]
+    is the probability that it will require $k$ trials until a success.
+
+    The entropy of the Geometric Distribution is given by
+    \begin{align*}\entropy{X}
+         & = \sum_{k = 1}^{\infty} p(1 - p)^k\log\frac{1}{p(1 - p)^k}                                              \\
+         & = \sum_{k = 1}^{\infty} p(1 - p)^k\left(\log\frac{1}{p} + k\log\frac{1}{1 - p}\right)                   \\
+         & = p\log\frac{1}{p}\sum_{k = 1}^{\infty} (1 - p)^k + p\log\frac{1}{1 - p}\sum_{k = 1}^{\infty}k(1 - p)^k \\
+         & = p\frac{1}{p}\log\frac{1}{p} + p\log\frac{1}{1 - p}\frac{1 - p}{p^2}                                   \\
+         & = \frac{1}{p}\left(p\log\frac{1}{p} + (1 - p)\log\frac{1}{1 - p}\right)                                 \\
+         & = \frac{\binentropy{p}}{p} \to 0 \hbox{ as $p \to 0^+$}
+    \end{align*}
+\end{example}
+
+\begin{example}[Distribution with \infty~Entropy]
+    TBD
+\end{example}
+
+An empirical justification for the use of $\log_2$.
+
+\todo[inline]{Finish figure, caption, and description.}
+\begin{figure}
+    \caption{Drawing of ant nest used to empirically verify \dots}
+\end{figure}
+
+\begin{definition}[Convexity]
+    Let $V \isomorphic \reals^n$ be a vector space. A subset $S \subseteq V$ is
+    convex if, for any pair $\vec{x}, \vec{y} \in S$
+    \[\lambda\vec{x} + (1 - \lambda)\vec{y} \in S\hbox{ for all $\lambda \in [0, 1]$}\]
+\end{definition}
+
+\todo[inline]{figure demonstrating convexity}
+
+\begin{example}
+    The following are convex
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\reals^n$
+        \item
+        \item
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Convex Function]
+    A function $f: S \to \reals$ is
+    \begin{enumerate}[label=(\roman*)]
+        \item convex if $f\left(\lambda\vec{x} + (1 - \lambda)\vec{y}\right) \leq \lambda f(\vec{x}) + (1 - \lambda)f(\vec{y})$ for all $\vec{x}, \vec{y} \in S$ and $\lambda \in [0, 1]$
+        \item \emph{strictly} convex if $f\left(\lambda\vec{x} + (1 - \lambda)\vec{y}\right) < \lambda f(\vec{x}) + (1 - \lambda)f(\vec{y})$ for all $\vec{x}, \vec{y} \in S$ and $\lambda \in [0, 1]$
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Concave Function]
+    A function $f: S \to \reals$ is (strictly) concave if $-f$ is (strictly) convex.
+\end{definition}
+
+\begin{example}
+    \begin{enumerate}[label=(\arabic*)]
+        \item The function $x \to x\log{x}$ is strictly convex
+        \item The function $x \to \log{x}$ is strictly concave
+        \item The function $X \to \expectation{X}$ is convex (but not strictly)
+    \end{enumerate}
+\end{example}
+
+\begin{theorem}[Jensen's Inequality]
+    Let $X$ be a real vector valued random variable. Then, if $f$ is any convex
+    function,
+    \[f\left(\expectation{X}\right) \leq \expectation{f(X)}\]
+    If $f$ is strictly convex, then $f\left(\expectation{X}\right) = \expectation{f(X)}$
+    if and only if $X = \expectation{X}$, i.e., $X$ is a constant random variable.
+\end{theorem}
+
+\begin{proof}
+
+\end{proof}

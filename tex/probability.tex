@@ -1,0 +1,314 @@
+\section{Probability Theory}
+A discrete probability space $(\Omega, \Pr)$ is given by
+\begin{itemize}
+    \item a finite or countably infinite set $\Omega$
+          \begin{itemize}
+              \item e.g. $\set{a, b, c, d}$, $\naturals = \set{0, 1, 2, \dots}$
+          \end{itemize}
+    \item a probability mass function $\Pr: \Omega \to [0, 1]$, such that
+          \begin{enumerate}[label=(\arabic*)]
+              \item For all $\omega \in \Omega$, $\prob{\omega} \geq 0$
+              \item $\displaystyle\sum_{\omega \in \Omega}\prob{\omega} = 1$
+          \end{enumerate}
+          For $\omega \in \Omega$, $\prob{\omega}$ is the probability that
+          $\omega$ ``occurs''
+\end{itemize}
+
+\begin{definition}[Event]
+    Given a probability space $(\Omega, \Pr)$, an \emph{event} $E$ is a subset
+    $E \subseteq \Omega$, with corresponding probability
+    \[\prob{E} = \sum_{\omega \in E}\prob{\omega}\]
+\end{definition}
+
+The function $\Pr: \Omega \to [0, 1]$ induces a \emph{probability distribution},
+\[\Pr: 2^{\Omega} \to [0, 1]\]
+also denoted by $\Pr$, with properties:
+\begin{enumerate}[label=(\arabic*)]
+    \item if $A \cap B = \emptyset$, then $\prob{A \cup B} = \prob{A} + \prob{B}$
+    \item $\prob{\Omega} = 1$
+\end{enumerate}
+As an abuse of notation, we write $\prob{\omega}$ and $\prob{\set{\omega}}$ interchangeably.
+
+\begin{example}[Rolling a fair die]
+    TBD
+\end{example}
+
+\begin{definition}[Conditional Probability]
+    Let $A, B \subseteq \Omega$. The \emph{conditional probability} of $A$ given $B$,
+    denoted by $\prob{A \given B}$, is defined
+    \[\prob{A \given B} = \frac{\prob{A \cap B}}{\prob{B}}\]
+\end{definition}
+
+\begin{example}[Fair Die Revisited]
+    TBD
+\end{example}
+
+\begin{theorem}[Bayes' Rule]
+    \[\prob{B \given A} = \frac{\prob{A \given B}\prob{B}}{\prob{A}}\]
+\end{theorem}
+
+\begin{proof}
+    By definition,
+    \begin{align*}
+        \prob{B \given A} & = \frac{\prob{A \cap B}}{\prob{A}} \\
+        \prob{A \given B} & = \frac{\prob{A \cap B}}{\prob{B}}
+    \end{align*}
+    hence
+    \begin{align*}\prob{A \cap B}
+         & = \prob{B \given A}\prob{A} \\
+         & = \prob{A \given B}\prob{B}
+    \end{align*}
+    from which the result follows.
+\end{proof}
+
+\begin{example}[Flipping a fair coin twice]
+    TBD
+\end{example}
+
+\begin{definition}[Random Variable]
+    A \emph{Random Variable} $X$ is a function
+    \[X: \Omega \to \mathcal{X}\]
+    from probability space $(\Omega, \Pr)$ to a target space $\mathcal{X}$. We
+    say $X$ is discrete if $\mathcal{X}$ is discrete and call
+    \[\mathcal{X} = \set{x_1, x_2, \dots}\]
+    the \emph{alphabet} of $X$.
+\end{definition}
+
+Notice that $X$ induces a distribution on $\mathcal{X}$. For any $x \in \mathcal{X}$
+\[\prob[X]{x} = \prob{\set{\omega \suchthat X(\omega) = x}}\]
+In many cases, $(X. \Pr_x)$ captures all information needed from random variable $X$.
+We write $X \drawsfrom \Pr_x$ to indicate that $X$ has distribution $\Pr_x$ on $\mathcal{X}$.
+
+\begin{example}[52 Card Deck]
+    TBD
+\end{example}
+
+\begin{definition}[Joint Distribution]
+    Let $X: \Omega \to \mathcal{X}$, $Y: \Omega \to \mathcal{Y}$ be two random variables.
+    The \emph{joint distribution} on $\mathcal{X} \times \mathcal{Y}$ is given by
+    \begin{align*}
+        \prob[XY]{X = x, Y = y}         & = \prob{\set{X(\omega) = x, Y(\omega) = y}}         \\
+        \shortintertext{For subsets $E_1\subseteq \mathcal{X}$, $E_1 \subseteq \mathcal{Y}$}
+        \prob[XY]{X \in E_1, Y \in E_2} & = \prob{\set{X(\omega) \in E_1, Y(\omega) \in E_2}}
+    \end{align*}
+\end{definition}
+Notice that $\Pr_{XY}$ is a distribution on the product space
+$(\mathcal{X} \times \mathcal{Y}, \Pr_{XY})$.
+
+\begin{example}[Fair Die Joint Distribution]
+    TBD
+\end{example}
+
+\begin{example}[Flipping a fair coin twice joint distribution]
+    TBD
+\end{example}
+
+\begin{definition}[Independent Random Variables]
+    Two random variables $X$ and $Y$ are \emph{independent} if, for any $x, y$
+    \[\prob[XY]{X=x, Y=y} = \prob[X]{X=x}\prob[Y]{Y=y}\]
+    Equivalently, if for any subsets $E_1$ and $E_2$
+    \[\prob[XY]{X \in E_1, Y \in E_2} = \prob[X]{X \in E_1}\prob[Y]{Y \in E_2}\]
+\end{definition}
+
+\begin{definition}[Product Probability]
+    Given two probability spaces $(\Omega_1, \Pr_1)$, $(\Omega_2, \Pr_2)$
+    \[\Pr_1 \times \Pr_2(E_1 \times E_2) = \prob[1]{E_1}\prob[2]{E_2}\]
+    is the product probability on $\Omega_1 \times \Omega_2$.
+\end{definition}
+
+Thus, we have the property that $X$ and $Y$ are independent random variables
+if and only if $\Pr_{XY} = \Pr_X \times \Pr_Y$.
+
+\begin{example}[Rank and Suit of a card]
+    TBD
+\end{example}
+
+\begin{definition}[Real Random Variable]
+    A \emph{Real Random Variable} is a function
+    \[X: \Omega \to \reals\]
+\end{definition}
+
+For example, the height of a randomly sampled person, the value of a die, and the rank
+of a playing card (where Ace is 1, Jack is 11, Queen is 12, and King is 13) are all
+real random variables. On the other hand, the suit of a playing card is \emph{not}
+a real random variable.
+
+In the discrete case, if $X: \Omega \to \mathcal{X}$ is a random variable, then
+\[\Pr_X: X \to [0, 1]\]
+is a real random variable.
+
+\begin{definition}[Conditional Distribution]
+    Given two random variables $X$ and $Y$, the conditional distribution is the
+    real random variable given by
+    \[\Pr_{X \given Y}: \mathcal{X} \times \mathcal{Y} \to [0, 1]\]
+    where
+    \[\prob[X \given Y]{x \given y} = \prob{X = x \given Y = y}\]
+\end{definition}
+
+Given two real random variables $X$ and $Y$, we can define
+\begin{itemize}
+    \item $X + Y$
+    \item $X \cdot Y$
+    \item $f(X)$ (where $f:\reals \to \reals$)
+\end{itemize}
+as new random variables.
+
+\begin{definition}[Expectation and Variance]
+    The \emph{expected value} (or expectation or mean) of a real random variable $X$
+    is defined as the real number
+    \[\expectation{X} = \sum_{x \in \mathcal{X}} x\prob[X]{X=x} = \sum_{\omega \in \Omega}X(\omega)\prob{X = \omega}\]
+    The \emph{variance} is defined as
+    \[\variance{X} = \expectation{(X - \expectation{X})^2}\]
+\end{definition}
+
+\begin{example}[Expected Value and Variance of a Fair Die]
+    TBD
+\end{example}
+
+\begin{theorem}[Linearity of Expectation]
+    \label{thm:linearityofexpectation}
+    Let $X$ and $Y$ be real random variables and $a, b \in \reals$. Then
+    \[\expectation{aX + bY} = a\expectation{X} + b\expectation{Y}\]
+\end{theorem}
+
+\begin{proof}
+    By definition,
+    \begin{align*}\expectation{aX + bY}
+         & = \sum_{\omega \in \Omega}\left(aX(\omega) + bY(\omega)\right)\prob{\omega}                          \\
+         & = \sum_{\omega \in \Omega}aX(\omega)\prob{\omega} + \sum_{\omega \in \Omega} bY(\omega)\prob{\omega} \\
+         & = a\sum_{\omega \in \Omega}X(\omega)\prob{\omega} + b\sum_{\omega \in \Omega} Y(\omega)\prob{\omega} \\
+         & = a\expectation{X} + b\expectation{Y}\qedhere
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    \[\variance{X} = \expectation{X^2} - \expectation{X}^2\]
+\end{corollary}
+
+\begin{proof}
+    By definition,
+    \begin{align*}\variance{X}
+         & = \expectation{(X - \expectation{X})^2}                                                 \\
+         & = \expectation{X^2 - 2X\expectation{X} + \expectation{X}^2}                             \\
+         & = \expectation{X^2} - \expectation{2X\expectation{X}} + \expectation{\expectation{X}^2} \\
+         & = \expectation{X^2} - 2\expectation{X}^2 + \expectation{X}^2                            \\
+         & = \expectation{X^2} - \expectation{X}^2\qedhere
+    \end{align*}
+\end{proof}
+
+If $X$ and $Y$ are independent, we have the following
+\begin{theorem}
+    Let $X$ and $Y$ be independent real random variables. Then
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\expectation{XY} = \expectation{X}\expectation{Y}$ \label{item:expvalprod}
+        \item $\variance{X + Y} = \variance{X} + \variance{Y}$
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    First, \cref{item:expvalprod}:
+    \begin{align*}\expectation{XY}
+         & = \sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}xy\prob[XY]{X=x, Y=y}                                                 \\
+         & = \sum_{x\in\mathcal{X}}\sum_{y\in\mathcal{Y}}xy\prob[X]{X=x}\prob[Y]{Y=y}\hbox{ since $X$ and $Y$ are independent} \\
+         & = \sum_{x\in\mathcal{X}}x\prob[X]{X=x}\sum_{y\in\mathcal{Y}}y\prob[Y]{Y=y}                                          \\
+         & = \expectation{X}\expectation{Y}
+    \end{align*}
+
+    Now,
+    \begin{align*}\variance{X + Y}
+         & = \expectation{(X + Y)^2} - \expectation{X + Y}^2                                                                                     \\
+         & = \expectation{X^2 + 2XY + Y^2} - \left(\expectation{X} + expectation{Y}\right)^2                                                     \\
+         & = \expectation{X^2} + 2\expectation{XY} + \expectation{Y^2} - \expectation{X}^2 - 2\expectation{X}\expectation{Y} - \expectation{Y}^2 \\
+         & = \variance{X} + \variance{Y} + 2\expectation{XY} - 2\expectation{X}\expectation{Y}                                                   \\
+         & = \variance{X} + \variance{Y} \hbox{ by \cref{item:expvalprod}}\qedhere
+    \end{align*}
+\end{proof}
+
+\begin{definition}
+    A sequence of random variables $X_1$, $X_2$, \dots, $X_n$ is independent and
+    identically distributed from $\Pr_X$ (i.i.d $\drawsfrom \Pr_X$) if
+    \begin{enumerate}[label=(\arabic*)]
+        \item for all $i$, $X_i \drawsfrom \Pr_x$
+        \item $X_1$, $X_2$, \dots, $X_n$ are mutually independent, i.e., for any
+              $\set{i_1, i_2, \dots, i_k} \subseteq \set{1, 2, \dots, n}$
+              \[\prob{X_{i_1}X_{i_2} \dots X_{i_k}} = \prob{X_{i_1}}\prob{X_{i_2}} \dots \prob{X_{i_k}}\]
+    \end{enumerate}
+\end{definition}
+
+\begin{theorem}[The Weak Law of Large Numbers (WLLN)]
+    \label{thm:wlln}
+    Let $X_n$ be an infinite i.i.d. sequence drawn from $\Pr_X$. Write
+    \[\sampleavg{X}_n = \frac{1}{n}\left(X_1 + X_2 + \dots + X_n\right)\]
+    and suppose $\variance{X}$ and $\expectation{X}$ are both finite. Then, for
+    any $\varepsilon > 0$,
+    \[\lim_{n\to\infty}\prob{\abs{\sampleavg{X}_n - \expectation{X}} < \varepsilon} = 1\]
+\end{theorem}
+
+We first show the following two lemmas.
+
+\begin{lemma}[Markov's Inequality]
+    \label{lem:markov}
+    Let $X$ be any non-negative random variable and $a > 0$. Then
+    \[\prob{X \geq a} \leq \frac{\expectation{X}}{a}\]
+\end{lemma}
+
+\begin{proof}
+    Define the indicator random variable
+    \[\indicator{X \geq a} = \begin{cases}1 & \hbox{ if $X \geq a$}\\0 & \hbox{ if $X < a$}\end{cases}\]
+    and notice that $\expectation{\indicator{X \geq a}} = \prob{X \geq a}$. Clearly,
+    $X \geq a\indicator{X \geq a}$, hence
+    \[\expectation{X} \geq a\expectation{\indicator{X \geq a}} = a\prob{X \geq a}\]
+    from which the result follows.
+\end{proof}
+
+\begin{lemma}[Chebyshev's Inequality]
+    \label{lem:chebyshev}
+    Let $X$ be any random variable with finite variance. Then
+    \[\prob{\abs{X - \expectation{X}} \geq \varepsilon^2} \leq \frac{\variance{X}}{\varepsilon}\]
+    for any $\varepsilon > 0$.
+\end{lemma}
+
+\begin{proof}
+    Set $Y = \left(X - \expectation{X}\right)^2$ and notice that
+    $\expectation{Y} = \variance{X}$. Then,
+    \begin{align*}\prob{\abs{X - \expectation{X}} \geq \varepsilon}
+         & = \prob{Y \geq \varepsilon^2}                                             \\
+         & \leq \frac{\expectation{Y}}{\varepsilon^2}\hbox{ by \nameref{lem:markov}} \\
+         & = \frac{\variance{X}}{\varepsilon^2}\qedhere
+    \end{align*}
+\end{proof}
+
+Now, we prove \cref{thm:wlln}.
+
+\begin{proof}
+    First, notice that
+    \begin{align*}\expectation{\sampleavg{X}_n}
+         & = \expectation{\frac{1}{n}\left(X_1 + X_2 + \dots + X_n\right)}                     \\
+         & = \frac{1}{n} \cdot n\expectation{X}\hbox{ by \nameref{thm:linearityofexpectation}} \\
+         & = \expectation{X}
+    \end{align*}
+    and
+    \begin{align*}\variance{\sampleavg{X}_n}
+         & = \variance{\frac{1}{n}\left(X_1 + X_2 + \dots + X_n\right)}                         \\
+         & = \frac{1}{n^2}\left(\variance{X_1} + \variance{X_2} + \dots + \variance{X_n}\right) \\
+         & = \frac{1}{n^2} \cdot n \variance{X}                                                 \\
+         & = \frac{1}{n}\variance{X}
+    \end{align*}
+    then, by \nameref{lem:chebyshev},
+    \begin{align*}\prob{\abs{\sampleavg{X}_n - \expectation{X}} \geq \varepsilon}
+         & \leq \frac{\var{\sampleavg{X}_n}}{\varepsilon^2}                                 \\
+         & = \frac{\variance{X}}{n\varepsilon^2}            \to 0 \hbox{ as $n \to \infty$}
+    \end{align*}
+    hence
+    \[\prob{\abs{\sampleavg{X}_n - \expectation{X}} < \varepsilon} = 1 - \prob{\abs{\sampleavg{X}_n - \expectation{X}} \geq \varepsilon} \to 1 \hbox{ as $n \to \infty$}\qedhere\]
+\end{proof}
+
+\begin{example}[Bernoulli Random Variable]
+    TBD
+\end{example}
+
+\begin{definition}[Vector Valued Random Variable]
+    Let
+    \[X = (X_1, X_2, \dots, X_n): \Omega \to \reals^n\]
+    \todo[inline]{finish this part --- part in notes is a bit cryptic}
+\end{definition}
