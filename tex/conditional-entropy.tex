@@ -40,3 +40,32 @@ over $y \drawnfrom \Pr_Y$.
         \item $\entropy{XY} \geq \max\set{\entropy{X}, \entropy{Y}}$
     \end{enumerate}
 \end{theorem}
+
+\begin{proof}\mbox{}
+    \begin{enumerate}[label=(\arabic*)]
+        \item \begin{align*}\entropy{X \given Y}
+                   & = \expectation[y \drawnfrom \Pr_Y]{\entropy{\Pr_{X \given Y = y}}}    \\
+                   & \leq \entropy{\expectation[y \drawnfrom \Pr_Y]{\Pr_{X \given Y = y}}} \\
+                   & = \entropy{\Pr_X}                                                     \\
+                   & = \entropy{X}
+              \end{align*}
+        \item
+        \item $\entropy{XY} = \entropy{X} + \entropy{Y \given X} \geq \entropy{X}$
+              The same argument shows $\entropy{XY} \geq \entropy{Y}$, hence it must be
+              greater than or equal to the maximum of the two.
+    \end{enumerate}
+\end{proof}
+
+\begin{corollary}
+    For any function $f$
+    \begin{enumerate}[label=(\arabic*)]
+        \item $\entropy{X} = \entropy{Xf(X)}$
+        \item $\entropy{f(X) \given X} = 0$
+        \item $\entropy{X} \geq \entropy{f(X)}$ with equality if and only if $f$
+              is injective
+    \end{enumerate}
+\end{corollary}
+
+\begin{proof}
+
+\end{proof}
