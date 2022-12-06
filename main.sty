@@ -294,8 +294,12 @@ overlay={\begin{tcbclipinterior}
 
 \newcommand{\naturals}{\ensuremath{\mathbb{N}}}
 \newcommand{\reals}{\ensuremath{\mathbb{R}}}
+\newcommand{\complexnums}{\ensuremath{\mathbb{C}}}
 \newcommand{\isomorphic}{\cong}
 \renewcommand{\vec}[1]{\ensuremath{\mathbf{#1}}}
+\newcommand{\conj}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\innerproduct}[2]{\ensuremath{\left\langle #1, #2\right\rangle}}
+\newcommand{\norm}[1]{\ensuremath{\left\lVert#1\right\rVert}}
 
 \newcommand{\entropy}[1]{\ensuremath{H\left(#1\right)}}
 \newcommand{\binentropy}[1]{\ensuremath{h\left(#1\right)}}
@@ -304,9 +308,12 @@ overlay={\begin{tcbclipinterior}
 \newcommand{\identically}{\equiv}
 \newcommand{\composedwith}{\circ}
 \newcommand{\length}[1]{\ensuremath{\ell\left(#1\right)}}
+\newcommand{\optlength}[1]{\ensuremath{\ell^*\left(#1\right)}}
+
+\DeclareMathOperator{\spanset}{span}
 
 % Todo stuff
-\usepackage{todonotes}
+\usepackage[obeyFinal]{todonotes}
 \makeatletter
 \renewcommand{\todo}[2][]{\tikzexternaldisable\@todo[#1]{#2}\tikzexternalenable}
 \makeatother

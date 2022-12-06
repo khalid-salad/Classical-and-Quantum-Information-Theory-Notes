@@ -1,0 +1,151 @@
+\section{Preliminary on Linear Algebra}
+
+\begin{definition}{Complex Vector Space}
+    A \emph{complex vector space} is a set $V$ together with two binary operations,
+    \begin{align*}
+        +     & : V \times V \to V            \\
+        \cdot & : \complexnums \times V \to V
+    \end{align*}
+    such that, for any $\vec{u}, \vec{v}$ in $V$ and any complex $\alpha$,
+    $\beta$,
+    \begin{enumerate}[label=\arabic*)]
+        \item $\vec{u} + (\vec{v} + \vec{w}) = (\vec{u} + \vec{v}) + \vec{w}$ (associativity)
+        \item $\vec{u} + \vec{v} = \vec{v} + \vec{u}$ (commutativity)
+        \item There exists an element $\vec{0} \in V$, called the \emph{zero vector}, such that $\vec{v} + \vec{0} = \vec{0} + \vec{v} = \vec{v}$ for all $\vec{v} \in V$
+        \item For every element $\vec{v}\in V$, there is an element $-\vec{v} \in V$, called the \emph{additive inverse} such that
+              $\vec{v} + -\vec{v} = \vec{0}$
+        \item $\alpha\cdot(\beta\cdot\vec{v}) = (\alpha\beta)\cdot\vec{v}$
+        \item $1\cdot\vec{v} = \vec{v}$
+        \item $\alpha(\vec{u} + \vec{v}) = \alpha\vec{u} + \alpha\vec{v}$
+        \item $(\alpha + \beta)\vec{v} = \alpha\vec{v} + \beta\vec{v}$
+    \end{enumerate}
+\end{definition}
+
+We call $\alpha\vec{u} + \beta\vec{v}$ a \emph{linear combination} of $\vec{u}$
+and $\vec{v}$. Additionally, writing a vector in bold, as in $\vec{v}$, is often
+omitted, with the fact that $v$ is a vector determined from context. Similarly,
+the $\cdot$ is not generally written, so $a\cdot\vec{v} = a\vec{v}$.
+
+Any $n$-dimensional vector can be viewed as a column vector, as in
+\[\vec{v} = \begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix}\]
+and addition and scalar multiplication as
+\begin{align*}
+    \vec{u} + \vec{v} & = \begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix} + \begin{pmatrix}u_1\\u_2\\\vdots\\\u_n\end{pmatrix} = \begin{pmatrix}u_1 + v_1\\u_2 + v_2\\\vdots\\u_n + v_n\end{pmatrix} \\
+    \alpha\vec{v}     & =\alpha\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix} =\begin{pmatrix}\alpha v_1\\\alpha v_2\\\vdots\\\alpha v_n\end{pmatrix}
+\end{align*}
+
+\begin{definition}[Span]
+    The \emph{span} of a set of vectors $W \subseteq V$, denoted $\spanset(W)$,
+    is the set of all linear combinations of vectors in $W$.
+\end{definition}
+
+\begin{definition}[Spanning Set]
+    A subset $W$ of $V$ is a spanning set if $\spanset(W) = V$, i.e., every vector
+    in $V$ can be written as a linear combination of vectors in $W$.
+\end{definition}
+
+\begin{definition}[Linear Independence]
+    A set of vectors $W$ is \emph{linearly independent} if
+    \[\alpha_1 \vec{w}_1 + \alpha_2 \vec{w}_2 + \dots = \vec{0}\]
+    implies $\alpha_1 = \alpha_2 = \dots = 0$.
+\end{definition}
+
+\begin{definition}[Basis]
+    A \emph{basis} of a vector space is a linearly independent spanning set.
+\end{definition}
+
+\begin{definition}[Homomorphism]
+    A function $\phi:V \to W$ is a vector-space homomorphism if, for any $\alpha$, $\beta$
+    in $\complexnums$ and $\vec{u}$, $\vec{v}$ in $V$
+    \[\phi(\alpha\vec{u} + \beta\vec{v}) = \alpha\phi(\vec{u}) + \beta\phi(\vec{v})\]
+
+    A bijective homomorphism is called an \emph{isomorphism}. If an isomorphism exists
+    between vector spaces $V$ and $W$, we say that $V$ and $W$ are \emph{isomorphic}.
+\end{definition}
+
+The \emph{standard basis} is given by
+\[\vec{e}_1 = \begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix} \quad \vec{e}_2 = \begin{pmatrix}0\\2\\\vdots\\0\end{pmatrix} \quad\dots\quad \vec{e}_n = \begin{pmatrix}0\\0\\\vdots\\1\end{pmatrix}\]
+
+Notice that any vector can be written as a linear combination of the standard basis.
+That is
+\[\vec{u} = \begin{pmatrix}u_1\\u_2\\\vdots\\u_n\end{pmatrix} = u_1\vec{e}_1 + u_2\vec{e}_2 + \dots + u_n\vec{e}_n\]
+
+\begin{definition}[Vector Space of Functions]
+    Let $I$ be a finite set. Then
+    \[\complexnums^I = \set{u: I \to \complexnums}\]
+    where $u + v$ is the function given by
+    \[(u + v)(a) = u(a) + v(a)\]
+    and $\alpha u$ the function
+    \[(\alpha u)(a) = \alpha\cdot u(a)\]
+\end{definition}
+
+\begin{theorem}
+    The vector space $\complexnums^I$ is isomorphic to $\complexnums^n$ if and
+    only if $\card{I} = n$.
+\end{theorem}
+
+\begin{proof}
+    Write $I = \set{x_1, x_2, \dots, x_n}$ and define
+    $e_i: I \to \complexnums$ by
+    \[e_i(y) = \delta_{x_i y} = \begin{cases}1 & \hbox{ if $y=x_i$}\\0 & \hbox{otherwise}\end{cases}\]
+    It suffices to show that $\set{e_i}$ forms a basis --- that this set spans is simple:
+    suppose $u$ is defined by
+    \[u(x_i) = a_i\]
+    then
+    \[u = a_1e_1 + a_2e_2 + \dots + a_ne_n\]
+    since each $e_i(x_i) = 1$ and $e_j(x_i) = 0$ for $j \neq i$.
+
+    To see that this set is also linearly independent, suppose that
+    \[a_1e_1 + a_2e_2 + \dots + a_ne_n = 0\]
+    where here 0 is the function that identically maps $I$ to 0. Then
+    \[\left(a_1e_1 + a_2e_2 + \dots + a_ne_n\right)(x_1) = a_1e_1(x_1) = 0\]
+    which forces $a_1 = 0$. Similar reasoning shows that all $a_i$ must be 0,
+    as desired.
+\end{proof}
+
+\begin{example}
+    Let $\mathcal{X} = \set{0, 1}^2 = \set{00, 01, 10, 11}$. Then
+    \[u \in \complexnums^{\mathcal{X}} \leftrightarrow \begin{pmatrix}u(00)\\u(01)\\u(10)\\u(11)\end{pmatrix}\in\complexnums^4\]
+\end{example}
+
+\begin{definition}
+    The inner product on $\complexnums^I$ is the function defined by
+    \begin{align*}
+        \innerproduct{\cdot}{\cdot} & :\complexnums^I \times \complexnums^I \to \complexnums \\
+        \innerproduct{u}{v}         & = \sum_{i\in I}\conj{u(i)}v(i)
+    \end{align*}
+    where $\conj{a + bi} = a - bi$ for $a, b\in\reals$.
+
+    The inner product satisfies:
+    \begin{enumerate}[label=(\arabic*)]
+        \item Linearity in second input: $\innerproduct{u}{\alpha v + \beta w} = \alpha\innerproduct{u}{v} + \beta\innerproduct{u}{w}$
+        \item Conjugate symmetry: $\innerproduct{u}{v} = \conj{\innerproduct{v}{u}}$
+        \item Positivity: $\innerproduct{u}{u} \geq 0$ with equality if and only if $u = 0$
+    \end{enumerate}
+\end{definition}
+Note that items 1 and 2 above imply anti-linearity in the first input:
+\[\innerproduct{\alpha u + \beta v}{w} = \conj{\alpha}\innerproduct{u}{w} + \conj{\beta}\innerproduct{v}{w}\]
+
+\begin{definition}[Norm and Distance]
+    The \emph{norm} of a vector is given by
+    \[\norm{v} = \sqrt{\innerproduct{v}{v}}\]
+    The distance between vectors $u$ and $v$ is defined
+    \[d(u, v) = \norm{u - v} = \sqrt{\sum_{i=1}^n\abs{u(i) - v(i)}^2}\]
+\end{definition}
+
+\begin{theorem}[Properties of the norm]
+    For all $u$, $v$ in $V$ and $\alpha \in \complexnums$, the norm satisfies:
+    \begin{enumerate}[label=\arabic*.]
+        \item Positivity: $\norm{u} \geq 0$ with equality iff $u = 0$
+        \item $\norm{\alpha u} = \abs{\alpha}\norm{u}$
+        \item $\norm{u + v} \leq \norm{u} + \norm{v}$ (triangle inequality)
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}[The Cauchy-Schwarz Inequality]
+    For any $u, v \in \complexnums^n$,
+    \[\innerproduct{u}{v} \leq \norm{u}\norm{v}\]
+    with equality if and only if $u = \alpha v$ for some $\alpha \in \complexnums$.
+\end{theorem}
+
+The Cauchy-Schwarz Inequality is equivalent to the triangle inequality.

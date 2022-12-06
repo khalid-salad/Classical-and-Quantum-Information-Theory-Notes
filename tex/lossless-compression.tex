@@ -133,6 +133,7 @@ frequently occurring characters.
 
 First, we show the following lemma
 \begin{lemma}
+    \label{lem:posintrvent}
     Let $Z$ be a positive integer valued random variable with finite expectation.
     Then $\entropy{Z} \leq \expectation{Z}\entropy{\frac{1}{\expectation{Z}}}$.
 \end{lemma}
@@ -197,3 +198,59 @@ Now, we prove \cref{thm:optcomp}.
 \begin{proof}
 
 \end{proof}
+
+\begin{theorem}[Optimal Average Code Length]
+    Given $\mathcal{X}$ and $\prob[X]{1} \geq \prob[X]{2} \geq \dots$, then
+    \begin{enumerate}[label=(\arabic*)]
+        \item \label{item:optlengthpow2}$\expectation{\length{f^*(x)}} = \displaystyle\sum_{k=0^{\infty}}\prob{X \geq 2^k}$
+        \item $\entropy{X} - \log\left(e\entropy{X} + e\right) \leq \expectation{\length{f^*(x)}} \leq \entropy{X}$
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Throughout, let $\optlength{X} = \length{f^*(X)}$. \Cref{item:optlengthpow2}
+    is straightforward:
+    \begin{align*}\expectation{\optlength{X}}
+         & = \expectation{\floor{\log{X}}}                    \\
+         & = \sum_{k=1}^{\infty}\prob{\floor{\log{X}} \geq k} \\
+         & = \sum_{k=1}^{\infty}\prob{\log{X} \geq k}         \\
+         & = \sum_{k=1}^{\infty}\prob{X \geq 2^k}
+    \end{align*}
+
+    Now, notice that
+    \[f^*(X_n) = \left(f^*(X_1), f^*(X_2), \dots, f^*(X_n)\right)\]
+    hence
+    \[\optlength{X_n} = \sum_{i=1}^n\optlength{X_i}\]
+    Additionally, we have $\prob[X]{m} \leq \frac{1}{m}$, since
+    \begin{align*}m\prob[X]{m}
+         & \leq \sum_{i = 1}^m\prob[X]{i} \\
+         & \leq 1
+    \end{align*}
+    hence
+    \[\optlength{m} = \floor{\log{m}} \leq \log\frac{1}{\prob[X]{m}}\]
+    Thus, we conclude that
+    \[\expectation{\optlength{X}} \leq \expectation{\log\frac{1}{\prob[X]{x}}} = \entropy{X}\]
+    For the other side of the inequality, apply \cref{lem:posintrvent}.
+    \begin{align*}\entropy{X}
+         & = \entropy{X \given L} + \entropy{L}                                                                                          \\
+         & = \sum \prob[L]{k}\entropy{X \given L = k} + \binentropy{\frac{1}{\entropy{\expectation{L}}}}\left(1 + \expectation{L}\right) \\
+         & \leq \sum \prob[L]{k}\log{2^k} + \binentropy{\frac{1}{\entropy{\expectation{L}}}}\left(1 + \expectation{L}\right)             \\
+         & = \expectation{L} + \log\left(1 + \expectation{L}\right) + \expectation{L}\log\left(1 + \frac{1}{\expectation{L}}\right)      \\
+         & \leq \expectation{L} + \log\left(e\left(1 + \entropy{X}\right)\right)\qedhere
+    \end{align*}
+\end{proof}
+
+\begin{corollary}
+    If $X = S^n$ is an iid sequence, then
+    \[n\entropy{S} - \log{n} + \bigO{1} \leq \expectation{\optlength{S^n}} \leq n\entropy{S}\]
+    hence
+    \[\lim_{n\to\infty}\frac{\expectation{\optlength{S^n}}}{n} = \entropy{S}\]
+    i.e., the expected length per message approaches the entropy.
+\end{corollary}
+
+In 2011, Szpankowski and Verd\'{u} showed
+
+\[\expectation{\optlength{S^n}} = n\entropy{S} - \frac{1}{2}\log{n} + \bigO{1}\]
+
+Additionally, by the weak law of large numbers,
+\[\frac{\optlength{S^n}}{n} \to \entropy{S} \hbox{ in probability}\]
