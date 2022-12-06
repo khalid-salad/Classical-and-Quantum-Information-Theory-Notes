@@ -149,3 +149,199 @@ Note that items 1 and 2 above imply anti-linearity in the first input:
 \end{theorem}
 
 The Cauchy-Schwarz Inequality is equivalent to the triangle inequality.
+
+Other excamples of norms include:
+\begin{align*}
+    \norm{u}_p        & = \left(\sum_{i\in I}\abs{u(i)}^p\right)^{\frac{1}{p}} \\
+    \norm{u}_{\infty} & = \underset{i\in I}{\max}\set{u(i)}
+\end{align*}
+
+\begin{definition}[Hilbert Space]
+    A \emph{Hilbert Space} is a vector space with the norm
+    \[\norm{u} = \left(\sum_{i\in I}\abs{u(i)}^2\right)^{\frac{1}{2}} = \norm{u}_2\]
+\end{definition}
+
+\begin{definition}[Orthogonal Set]
+    A set $\set{u_1, u_2, \dots, u_k}$ is \emph{orthogonal} if $\innerproduct{u_i}{u_j} = 0$
+    for all $i \neq j$. The set is \emph{orthonormal} if all vectors are unit vectors,
+    i.e., $\norm{u_i} = 1$ for all $i$.
+
+    A set is an orthonormal basis if it is orthonormal and a basis.
+\end{definition}
+
+For example, the standard basis $e_1$, $e_2$, \dots, $e_n$ is an orthonormal basis on $\complexnums^n$.
+Similarly, where $\mathcal{X} = \set{x_1, x_2, \dots, x_n}$, the set $e_{x_1}$, $e_{x_2}$, \dots, $e_{x_n}$
+is an orthonormal basis on $\complexnums^{\mathcal{X}}$.
+
+The vector space $(\complexnums^n, \innerproduct{\cdot}{\cdot})$ is called the $n$-dimensional
+complex Hilbert (or Euclidean) Space.
+
+\begin{theorem}
+    Every $n$-dimensional complex Hilbert Space is isomorphic to $(\complexnums^n, \innerproduct{\cdot}{\cdot})$.
+\end{theorem}
+
+\begin{proof}
+    Since the dimension is $n$, there is an orthonormal basis of $n$ vectors,
+    $v_1$, $v_2$, \dots, $v_n$. The map
+    \[\alpha_1 v_1 + \alpha_2 v_2 + \dots + \alpha_n v_n \to \alpha_1 e_1 + \alpha_2 e_2 + \dots + \alpha_n e_n\]
+    is the desired isomorphism.
+\end{proof}
+
+In general, a Hilbert Space is a vector space together with an inner product. A Hilbert space $H$
+exhibits ``completeness'', any series of vectors
+\[\sum_{k=0}^{\infty} u_k\]
+that converges, i.e., satisfies
+\[\sum_{k=0}^{\infty}\norm{u_k} < \infty\]
+converges in $H$.
+
+A Hilbert Space can have infinite dimension. For example, the space
+
+\[L_2(\reals) = \set{\underset{\text{measurable}}{f:\reals\to\complexnums} \suchthat \int \abs{f(x)}^2 < \infty}\]
+with inner product
+\[\innerproduct{f}{g} = \int\conj{f}g\]
+is an infinite-dimensional Hilbert space.
+
+\begin{definition}[Linear Operator]
+    Let $\vecspace{V}$, $\vecspace{W}$ be complex vector spaces. A map $L:\vecspace{V}\to\vecspace{W}$ is
+    linear if
+    \[L(\alpha u + \beta v) = \alpha L(u) + \beta L(v)\]
+    for all $\alpha$, $\beta$ in $\complexnums$ and $u, v$ in $\mathcal{V}$.
+\end{definition}
+
+We denote by $L(\vecspace{V}, \vecspace{W})$ the set of \emph{all} linear operators
+from $\vecspace{V}$ to $\vecspace{W}$.
+
+$L(\vecspace{V}, \vecspace{W})$ is a complex vector space with
+\begin{itemize}
+    \item addition: $(A + B)u = Au + Bu$
+    \item Scalar multiplication: $(\alpha A)u = \alpha Au$
+\end{itemize}
+
+If $\dim \vecspace{V} = n$ and $\dim \vecspace{W} = m$ with basis
+\begin{align*}
+     & \set{v_1, v_2, \dots, v_n} \hbox{ of $\vecspace{V}$} \\
+     & \set{w_1, w_2, \dots, w_m} \hbox{ of $\vecspace{W}$}
+\end{align*}
+and operator $A$, we can write
+\begin{align*}
+    Av_1 & = a_{11}w_1 + a_{12}w_2 + \dots + a_{1m}w_m \\
+    Av_2 & = a_{21}w_1 + a_{22}w_2 + \dots + a_{2m}w_m \\
+         & \vdots                                      \\
+    Av_n & = a_{n1}w_1 + a_{n2}w_2 + \dots + a_{nm}w_m
+\end{align*}
+In the basis for $\vecspace{W}$, these are just the vectors
+\[\begin{pmatrix}a_{11}\\a_{12}\\\vdots\\a_{1m}\end{pmatrix}\quad\begin{pmatrix}a_{21}\\a_{22}\\\vdots\\a_{2m}\end{pmatrix}\quad\dots\quad\begin{pmatrix}a_{n1}\\a_{n2}\\\vdots\\a_{nm}\end{pmatrix}\]
+
+%TODO add matrix multiplicy vector definition figure
+
+$M = (a_{ij})_{\underset{1\leq j \leq n}{1\leq i\leq m}}$ is an $m \times n$ comple
+matrix. The $i, j$-th entry is given by $\innerproduct{w_i}{Av_j}$. The space of
+all $n \times m$ complex matrices is denoted $\matrices_{n\times m}$ and is isomorphic
+to $L(\complexnums^n, complexnums^m)$, the space of linear operators.
+
+\[\hbox{matrix }\underset{M\begin{pmatrix}u(1)\\u(2)\\\vdots\\u(n)\end{pmatrix}}{M} \xleftrightarrow[\set{w_j}\hbox{ basis of $\complexnums^m$}]{\set{v_i}\hbox{ basis of $\complexnums^n$}}\underset{Au}{A}\hbox{ linear operator}\]
+
+For $A \in L(\vecspace{V}, \vecspace{W})$, $B \in L(\vecspace{W}, \vecspace{Z})$,
+$AB \in L(\vecspace{V}, \vecspace{Z})$, where
+\begin{align*}
+    A\circ B(u)                             & = A(B(u))                                        \\
+    A\circ B\left(\alpha u + \beta v\right) & = A\left(B\left(\alpha u + \beta v\right)\right) \\
+                                            & = A\left(\alpha Bu + \beta Bv\right)             \\
+                                            & = \alpha ABu + \beta ABv
+\end{align*}
+
+thus, this map is linear. Note the ``$\circ$'' is often omitted.
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}
+        \node (v) {$\vecspace{V}$};
+        \node[right=of v] (w) {$\vecspace{W}$};
+        \node[right=of w] (z) {$\vecspace{Z}$};
+        \node[below=of v] (cn) {$\complexnums^n$};
+        \node[below=of w] (cm) {$\complexnums^m$};
+        \node[below=of z] (cd) {$\complexnums^d$};
+
+        \draw[<->] (v) to node[left] {$\set{v_i}$} (cn);
+        \draw[<->] (w) to node[right] {$\set{w_i}$} (cm);
+        \draw[<->] (z) to node[right] {$\set{z_i}$} (cd);
+
+        \draw[->] (v) to node[above] {$A$} (w);
+        \draw[->] (w) to node[above] {$B$} (z);
+        \draw[->] (cn) to node[above] {$M$} (cm);
+        \draw[->] (cm) to node[above] {$N$} (cd);
+    \end{tikzpicture}
+\end{figure}
+
+$A\circ B \leftrightarrow MN$
+
+\[(MN)_{ik} = \sum_{j = 1}^m M_{ij}N_{jk} \underset{1 \leq i \leq d,\quad 1 \leq k \leq n}{\hbox{ matrix multiplication}}\]
+
+Basis for $\matrices_{n\times m}$.
+
+\[E_{i, j}(k, \ell) = \begin{cases}1 & \hbox{ if $(k, \ell) = (i, j)$}\\0 & \hbox{ otherwise}\end{cases}\]
+
+%TODO add drawing for i, j entry of matrix
+
+\[M = \sum_{M(i, j)E_{i,j}}\]
+The set $\set{E_{ij}}$ forms a basis for $\matrices_{n \times m}$.
+
+Basis for $L(\vecspace{V}, \vecspace{W})$.
+
+For $v \in \vecspace{V}$, $w\in\vecspace{W}$, $E_{w,v}(u) = \innerproduct{v}{u}w$.
+
+Given a basis $\set{v_i}\subseteq\vecspace{V}$, $\set{w_j}\subseteq\vecspace{W}$,
+
+\[E_{w_j,w_i}(v_k) = \delta_{ik}w_j = \begin{cases}w_j & \hbox{ if $i = k$}\\0 &\hbox{ otherwise}\end{cases}\]
+
+The set
+\[\set{E_{w_j,v_i} \suchthat \begin{tabular}{l}$i=1,2,\dots,n$\\$j=1,2,\dots,m$\end{tabular}}\]
+forms a basis for $L(\vecspace{V}, \vecspace{W})$.
+
+Thus, $\dim \matrices_{n\times m} = nm$ and $\dim L(\vecspace{V}, \vecspace{W}) = \dim \vecspace{V} \dim \vecspace{W}$.
+
+\begin{definition}[Direct Sum of Vector Spaces]
+    Given $\vecspace{V}_1 = \complexnums^{\mathcal{X}_1}$, $\vecspace{V}_2 = \complexnums^{\mathcal{X}_2}$,
+    \dots, $\vecspace{V}_n = \complexnums^{\mathcal{X}_n}$, the direct sum
+    $\vecspace{V}_1 \directsum \vecspace{V}_2 \directsum \dots \directsum \vecspace{V}_n$ is defined
+    \[\vecspace{V}_1 \directsum \vecspace{V}_2 \directsum \dots \directsum \vecspace{V}_n = \set{\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix}\suchthat v_i \in \vecspace{V}_i}\]
+    and
+    \[\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix} = v_1 \directsum v_2 \directsum \dots \directsum v_n\]
+    with addition defined
+    \[\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix} + \begin{pmatrix}u_1\\u_2\\\vdots\\u_n\end{pmatrix} = \begin{pmatrix}v_1 + u_1\\v_2 + u_2\\\vdots\\v_n + u_2\end{pmatrix}\]
+\end{definition}
+
+For example, $\complexnums^2 \directsum \complexnums^4 \directsum \complexnums^3 = \complexnums^{2+4+3} = \complexnums^9$, e.g.
+\[\begin{pmatrix}0\\1\end{pmatrix}\directsum\begin{pmatrix}2\\3\\1\\2\\\end{pmatrix}\directsum\begin{pmatrix}-5\\6\\7\end{pmatrix} = \begin{pmatrix}\begin{pmatrix}1\\0\end{pmatrix}\\\begin{pmatrix}2\\3\\1\\2\\\end{pmatrix}\\\begin{pmatrix}-5\\6\\7\end{pmatrix}\end{pmatrix} = \begin{pmatrix}1\\0\\2\\3\\1\\2\\-5\\6\\7\end{pmatrix}\]
+
+\begin{definition}[Inner Product of Direct Sum]
+    We define the inner product on $\vecspace{V}_1 \directsum \vecspace{V}_2 \directsum \dots \directsum \vecspace{V}_n$ as
+    \[\innerproduct{\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix}}{\begin{pmatrix}u_1\\u_2\\\vdots\\u_n\end{pmatrix}} = \sqrt{\sum_{i}\innerproduct{u_i}{v_i}}\]
+\end{definition}
+
+If the set $\set{e_k^i}_{k=1}^{\card{\vecspace{V}_i}}$ is an orthonormal basis
+of $\vecspace{V}_i$ for all $i$, then $\set{e_k^i}_{k,i}$ is an orthonormal basis
+of $\vecspace{V}_1 \directsum \vecspace{V}_2 \directsum \dots \directsum{V}_n$. Thus
+
+\[\complexnums^{d_1} \directsum \complexnums^{d_2} \directsum \dots \directsum \complexnums^{d_n} \isomorphic \complexnums^{d_1 + d_2 + \dots + d_n}\]
+
+\begin{definition}[Direct Sum of Linear Operators]
+    Let
+    \begin{align*}
+        A_1 & \in L(\vecspace{V}_1, \vecspace{W}_1) \\
+        A_2 & \in L(\vecspace{V}_2, \vecspace{W}_2) \\
+            & \vdots
+        A_n & \in L(\vecspace{V}_n, \vecspace{W}_n)
+    \end{align*}
+    Then $A_1 \directsum A_2 \directsum \dots \directsum A_n$ is the function in $L(V_n, V_m)$ given
+    by
+    \[A_1 \directsum A_2 \directsum \dots \directsum A_n\begin{pmatrix}u_1\\u_2\\\vdots\\u_n\end{pmatrix} = \begin{pmatrix}A_1u_1\\A_2u_2\\\vdots\\A_nu_n\end{pmatrix}\]
+\end{definition}
+
+If $A_1$ has matrix $M_1$, $A_2$ has matrix $M_2$, and so on, then
+
+\[A_1 \directsum A_2 \directsum \dots \directsum A_n \leftrightarrow \begin{bmatrix}M_1\\ &M_2\\ & &\ddots\\ & & & M_n\end{bmatrix}\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix}\]
+
+\begin{definition}[Tensor Product]
+    Given $\vecspace{V} = \complexnums^{\mathcal{X}}$ and $\vecspace{W} = \complexnums^{\mathcal{Y}}$
+\end{definition}
