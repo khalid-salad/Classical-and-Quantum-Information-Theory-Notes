@@ -1,0 +1,105 @@
+\section{Spectral Theorem}
+
+Recall the correspondence
+
+\begin{align*}
+    L(\complexnums^n, \complexnums^n)                            & \xleftrightarrow{\text{basis}} \matrices_{m\times n}                                                    \\
+    A                                                            & \phantom{\xleftrightarrow{\text{basis}}} (a_{ij})_{i,j} = \begin{bmatrix}a_{11}&\dots&a_{1n}\\\vdots&\ddots&\vdots\\a_{m1}&\dots&a_{mn}\end{bmatrix}                     \\
+    A + B                                                        & \phantom{\xleftrightarrow{\text{basis}}} (a_{ij}) + (b_{ij}) = (a_{ij} + b_{ij})_{i,j}                  \\
+    AB                                                           & \phantom{\xleftrightarrow{\text{basis}}} (a_{ij})(b_{j\ell})=\left(\sum a_{ij}b_{j\ell}\right)_{i,\ell} \\
+    L(\complexnums^n, \complexnums^n) = \boundop{\complexnums^n} & \xleftrightarrow{\text{basis}} \matrices_{n\times n} = \matrices_n                                      \\
+    \hbox{Operator on $\complexnums^n$}                          & \phantom{\xleftrightarrow{\text{basis}}} \hbox{square matrix}
+\end{align*}
+
+For $A, B \in \boundop{\complexnums^n} \isomorphic \matrices_n$, we can define
+\begin{enumerate}[label=\arabic*)]
+    \item \label{item:algadd}Addition: $A + B$
+
+          $A + B = B + A$ commutative
+
+          $0u = \vec{0}$ 0 operator such that $A + 0 = 0 + A = A$
+    \item \label{item:algmul}Multiplication: $AB$
+
+          $AB \neq BA$ non-commutative, e.g., \begin{tabular}{l}$\begin{bmatrix}1&0\\0&2\end{bmatrix}\begin{bmatrix}0&2\\1&0\end{bmatrix} = \begin{bmatrix}0&2\\2&0\end{bmatrix}$\\\\$\begin{bmatrix}0&2\\1&0\end{bmatrix}\begin{bmatrix}1&0\\0&2\end{bmatrix} = \begin{bmatrix}0&4\\1&0\end{bmatrix}$\end{tabular}
+
+          $Iu = u$ identity operator such that $AI = AI = A$, in matrix form $I = \begin{bmatrix}1 & 0 & \dots & 0\\0 & 1 & \dots & 0\\\vdots & \vdots& \ddots & \vdots\\0 & 0 & \dots & 1\end{bmatrix}$
+    \item \label{item:algadj}Adjoint $A^*$
+
+          $\innerproduct{A^*v}{u} = \innerproduct{v}{Au}$, in matrix form if $A = \begin{bmatrix}&&\\&a_{ij}&\\&&\end{bmatrix}$ then $A^* = \begin{bmatrix}&&\\&\conj{a_{ji}}&\\&&\end{bmatrix}$
+
+          Thus $(A^*)^* = A$ and $A^* = \conj{A^T}$ is the conjugate transpose of $A$ and
+          $(AB)^* = B^*A^*$ and $(A + B)^* = B^* + A^* = A^* + B^*$, e.g. $\begin{bmatrix}1 + i & 2 - i\\4 & 3\end{bmatrix}^* = \begin{bmatrix}1 - i & 4\\2 + i & 3\end{bmatrix}$
+\end{enumerate}
+
+In the above, \cref{item:algadd,item:algmul} form an \emph{algebra} and
+\cref{item:algadd,item:algmul,item:algadj} form a \emph{*-algebra}.
+
+$\boundop{\complexnums^n}$ is the algebra of (linear) operators on $\complexnums^n$
+
+$\matrices_n$ is the algebra of $n\times n$ complex matrices
+
+Other examples of algebras include function algebras, e.g., $\set{u:\Omega \to \complexnums}$
+(which is not commutative, i.e., $f\circ g \neq g\circ f$).
+
+Operators / Matrices with special Properties
+
+\begin{enumerate}[label=\arabic*.]
+    \item $A$ is \emph{self-adjoin} if $A = A^*$
+
+          e.g. $A = \begin{bmatrix}1 & 3 + i\\3 - i & 2\end{bmatrix}$
+
+          equivalently, if $\innerproduct{v}{Av}\in\reals$ for all $v \in \complexnums^n$, since
+          \begin{align*}\conj{\innerproduct{v}{Av}}
+               & = \innerproduct{Av}{v}   \\
+               & = \innerproduct{A^*v}{v} \\
+               & = \innerproduct{v}{Av}
+          \end{align*}
+    \item $A$ is \emph{positive} if $A = B^*B$ for some $B$
+
+          e.g. $B = \begin{bmatrix}1 & 1\\2 & 0\end{bmatrix}$ and $B^*B = \begin{bmatrix}1 & 2\\1 & 0\end{bmatrix}\begin{bmatrix}1 & 1\\2 & 0\end{bmatrix} = \begin{bmatrix}5 & 1\\1 & 1\end{bmatrix}$
+
+          equivalently, if $\innerproduct{v}{Av} \geq 0$ for all $v\in\complexnums^n$, since
+          \begin{align*}\innerproduct{v}{Av}
+               & = \innerproduct{v}{B^*Bv} \\
+               & = \innerproduct{Bv}{Bv}   \\
+               & \geq 0
+          \end{align*}
+          e.g. $A = \begin{bmatrix}1&0\\0&2\end{bmatrix}$, then
+          \begin{align*}\innerproduct{\begin{pmatrix}a\\b\end{pmatrix}}{\begin{bmatrix}1&0\\0&2\end{bmatrix}\begin{pmatrix}a\\b\end{pmatrix}}
+               & =\innerproduct{\begin{pmatrix}a\\b\end{pmatrix}}{\begin{pmatrix}a\\2b\end{pmatrix}} \\
+               & = \conj{a}a + 2\conj{b}b                                               \\
+               & = \abs{a}^2 + 2\abs{b}^2                                               \\
+               & \geq 0
+          \end{align*}
+          Similarly, if $A = \begin{bmatrix}5&1\\1&1\end{bmatrix}$ then
+          \begin{align*}\innerproduct{\begin{pmatrix}a\\b\end{pmatrix}}{\begin{bmatrix}5&1\\1&1\end{bmatrix}\begin{pmatrix}a\\b\end{pmatrix}}
+               & = 5\abs{a}^2 + \conj{a}b + a\conj{b} + \abs{b}^2                         \\
+               & = 4\abs{a}^2 + \left(\abs{a}^2 + conj{a}b + a\conj{b} + \abs{b}^2\right) \\
+               & = 4\abs{a}^2 + \abs{a + b}^2                                             \\
+               & \geq 0
+          \end{align*}
+
+          Notice that $(B^*B)^* = B^*(B^*)^* = B^*B$, hence if $A = B^*B$ is positive,
+          $A$ is self-adjoint.
+    \item $P$ is a projection if $P = P^* = P^2$
+
+          e.g. $P = \begin{bmatrix}1&0&0\\0&1&0\\0&0&0\end{bmatrix}$ or
+          $P = \begin{bmatrix}\frac{1}{2} & \frac{1}{2}\\\frac{1}{2}&\frac{1}{2}\end{bmatrix}$
+          or $P(u) = \innerproduct{v}{u}v$ for some unit-vector $v$ (this is called
+          the rank-one projection).
+
+          $P$ is a projection if and only if, for all $v$, $\innerproduct{Pv}{(1-P)v} = 0$.
+          $v = Pv + (I - P)v$, $PV \perp (1 - P)v$.
+
+          If $\vecspace{V} \subseteq \complexnums^n$ is a subspace (i.e., for any $u, v\in\vecspace{V}$, $\alpha u + \beta v\in \vecspace{V}$), then there is a
+          projection $P_{\vecspace{V}}$ such that $\min_{v\in P_{\vecspace{V}}}\norm{u - v} = \norm{u - P_{\vecspace{V}}u}$
+          %TODO Projection figure
+
+          We say $\vecspace{V} \perp \vecspace{W}$ if for all $v \in \vecspace{V}$
+          and $w\in \vecspace{W}$, $\innerproduct{v}{w}= 0$ (orthogonal). Equivalently,
+          if $P_{\vecspace{V}}P_{\vecspace{W}} = 0$. $\vecspace{V} \leq \vecspace{W}$
+          (i.e., $\vecspace{V}$ is a subspace of $\vecspace{W}$) if and only if
+          $P_{\vecspace{V}}P_{\vecspace{W}} = P_{\vecspace{V}}$.
+
+    \item $U$ is unitary if $U^*U = U^* = I$.
+\end{enumerate}

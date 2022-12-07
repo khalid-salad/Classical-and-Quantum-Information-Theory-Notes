@@ -348,4 +348,49 @@ If $A_1$ has matrix $M_1$, $A_2$ has matrix $M_2$, and so on, then
     with
     \[v \tensorprod w(a, b) = v(a)w(b)\]
     and
+    \begin{align*}\vecspace{V} \tensorprod \vecspace{W}
+         & = \spanset\set{v \tensorprod w \suchthat v \in \vecspace{v}, w \in \vecspace{W}}                                          \\
+         & = \set{\sum \alpha_i v_i \tensorprod w_i \suchthat \alpha_i \in \complexnums, v_i \in \vecspace{V}, w_i \in \vecspace{W}} \\
+         & \hbox{all linear combinations of elementary tensors}
+    \end{align*}
+\end{definition}
+
+Notice that
+\begin{align*}
+    v_1 \tensorprod w + v_2 \tensorprod w                   & = (v_1 + v_2)\tensorprod w                       \\
+    v\tensorprod w_1 + v \tensorprod w_2                    & = v \tensorprod (w_1 + w_2)                      \\
+    \alpha(v\tensorprod w)                                  & = \alpha v\tensorprod w = v \tensorprod \alpha w \\
+    \innerproduct{v_1 \tensorprod w_1}{v_2 \tensorprod w_2} & = \innerproduct{v_1}{v_2}\innerproduct{w_1}{w_2}
+\end{align*}
+
+If $\set{v_i} \subseteq \vecspace{V}$ and $\set{w_i} \subseteq \vecspace{W}$ are bases,
+then
+\begin{align*}\vecspace{V} \tensorprod \vecspace{W}
+     & = \left(a_1 v_1 + a_2 e_2 + \dots + a_n e_n\right) \tensorprod \left(b_1 w_1 + b_2 w_2 + \dots + b_m 2_m\right) \\
+     & = \sum_{i,j} a_ib_j v_i\tensorprod w_j
+\end{align*}
+so $\set{v_i \tensorprod w_j}_{i,j}$ is a basis of $\vecspace{V} \tensorprod \vecspace{W}$, and
+$\dim(\vecspace{V} \tensorprod \vecspace{W}) = \dim(\vecspace{V})\dim(\vecspace{W})$.
+
+One can similarly define $\vecspace{V}_1 \tensorprod \vecspace{V}_2 \tensorprod \dots \tensorprod \vecspace{V}_n$.
+
+In general,
+
+\begin{align*}
+    \vecspace{V} \directsum \vecspace{W}                                     & = \vecspace{W} \directsum \vecspace{V}                                                  \\
+    \vecspace{V} \tensorprod \vecspace{W}                                    & = \vecspace{W} \tensorprod \vecspace{V}                                                 \\
+    \left(\vecspace{V} \directsum\vecspace{W}\right)\tensorprod \vecspace{Z} & = \vecspace{V} \tensorprod \vecspace{Z} \directsum \vecspace{W}\tensorprod\vecspace{Z}  \\
+    \vecspace{V} \tensorprod \vecspace{W} \tensorprod \vecspace{Z}           & \isomorphic \left(\vecspace{V} \tensorprod \vecspace{W}\right) \tensorprod \vecspace{Z} \\
+    \vecspace{V} \directsum \vecspace{W} \directsum \vecspace{Z}             & \isomorphic \left(\vecspace{V} \directsum \vecspace{W}\right) \directsum \vecspace{Z}
+\end{align*}
+
+\begin{definition}[Tensor Product Operator]
+    For $A \in L(\vecspace{V}_1, \vecspace{W}_1)$ and $B \in L(\vecspace{V}_2, \vecspace{W}_2)$,
+    the tensor product of $A$ and $B$ is defined
+    \begin{align*}
+        A \tensorprod B \in L(\vecspace{V}_1 \tensorprod \vecspace{V}_2, \vecspace{W}_1 \tensorprod \vecspace{W}_2) \\
+        A \tensorprod B\left(v \tensorprod w\right) Av \tensorprod Bw
+    \end{align*}
+    Equivalently,
+    \[M_{n_1\times m_1} \tensorprod M_{n_2 \times m_2} = M_{n_1n_2 \times m_1m_2}\]
 \end{definition}
