@@ -102,8 +102,180 @@ Operators / Matrices with special Properties
           $P_{\vecspace{V}}P_{\vecspace{W}} = P_{\vecspace{V}}$.
 
     \item $U$ is unitary if $U^*U = U^* = I$.
-	e.g., $X = \begin{bmatrix}0&1\\1&0\end{bmatrix}$, $Y = \begin{bmatrix}0&i\\-i&0\end{bmatrix}$, $Z = \begin{bmatrix}1&0\\0&-1\end{bmatrix}$, the Pauli Matrices,
-	are unitary.
+          e.g., $X = \begin{bmatrix}0&1\\1&0\end{bmatrix}$, $Y = \begin{bmatrix}0&i\\-i&0\end{bmatrix}$, $Z = \begin{bmatrix}1&0\\0&-1\end{bmatrix}$, the Pauli Matrices,
+          are unitary.
 
-	$U$ is unitary if and only if $\innerproduct{Uv}{Uw} = \innerproduct{v}{w}$. 
+          $U$ is unitary if and only if $\innerproduct{Uv}{Uw} = \innerproduct{v}{w}$, since
+          \[\innerproduct{Uv}{Uw} = \innerproduct{v}{U^*Uw} = \innerproduct{v}{w}\]
+
+          Change of basis: given an orthonormal basis $\set{v_i} \subseteq \complexnums^n$
+          then $\set{Uv_i}$ is also an orthonormal basis, since
+          \[\innerproduct{Uv_i}{Uv_j} = \innerproduct{v_i}{v_j} = 0\]
+          In particular, given any two bases $\set{v_i}$ and $\set{w_i}$, there is a unique
+          unitary operator $U$ such that $Uv_i = w_i$ for all $i$.
+
+          If $U$ is unitary and maps the standard basis
+          \[e_i \to v_i\]
+          then $U^*$ is unitary and maps
+          \[v_i \to e_i\]
+          with $U^* = U^{-1}$.
+
+          \begin{definition}[Diagonalizable Operator]
+              An operator is \emph{diagonalizable} if there exists an orthonormal basis
+              $\set{v_i}$ such that
+              \[\innerproduct{v_j}{Av_i} = \lambda_i\delta_{ij} = \begin{cases}\lambda_i &\hbox{ if $i=j$}\\0&\hbox{ otherwise}\end{cases}\]
+              A matrix $A = (a_{ij})$ is diagonalizable if there exists a unitary $U$
+              such that
+              \[UAU^* = \begin{bmatrix}\lambda_1\\&\lambda_2\\&&\ddots\\&&&\lambda_n\end{bmatrix}\]
+              is a diagonal matrix.
+          \end{definition}
 \end{enumerate}
+
+\begin{theorem}[Spectral Theorem]
+    $A$ is diagonalizable if and only if $A^*A = A^*A$. In particular,
+    \[A = \sum \lambda_i E_i\]
+    where $\lambda_i \in \complexnums$ and $\set{E_i}$ is a set of mutually orthogonal
+    projections such that
+    \[\sum E_i = I\]
+\end{theorem}
+
+An operator $A$ that satisfies $AA^* = A^*A$ is called a \emph{normal} operator.
+
+\begin{definition}[Eigenvalue]
+    The value $\lambda$ is an \emph{eigenvalue} of an operator $A$ if there exists
+    a vector $v$ such that $Av = \lambda v$. The \emph{eigenspace} of an eigenvalue
+    $\lambda$ is
+    \[V_{\lambda} = \set{v \suchthat Av = \lambda v}\]
+    We define the finite set
+    \[\spec(A) = \set{\lambda \suchthat \hbox{ $\lambda$ is an eigenvalue of $A$}}\]
+\end{definition}
+Notice that $E_{\lambda}$ is a projection onto $V_{\lambda}$.
+
+If $A^*A = AA^*$, then $A = \sum_{\lambda\in\spec(A)}\lambda E_{\lambda}$, and
+\[UAU^* =
+    \begin{bmatrix}
+        \lambda_1 E_1                             \\
+         & \lambda_2 E_2                          \\
+         &               & \ddots                 \\
+         &               &        & \lambda_n E_N
+    \end{bmatrix}
+    =
+    \begin{bmatrix}                                                                \\
+         & \ddots                                                                                        \\
+         &        & \lambda_1                                                                            \\
+         &        &           & \lambda_2                                                                \\
+         &        &           &           & \ddots                                                       \\
+         &        &           &           &        & \lambda_2                                           \\
+         &        &           &           &        &           & \ddots                                  \\
+         &        &           &           &        &           &        & \lambda_n                      \\
+         &        &           &           &        &           &        &           & \ddots             \\
+         &        &           &           &        &           &        &           &        & \lambda_n
+    \end{bmatrix}
+\]
+
+%TODO remake in Tikz with dim(E_i) over each block
+
+\begin{example}
+    \[\begin{bmatrix}1&0\\0&-2\end{bmatrix} = 1E_1 + (-2)E_2\]
+    has eigenvectors
+    \[v_1 = \begin{pmatrix}1\\0\end{pmatrix}\quad\begin{pmatrix}0\\1\end{pmatrix}\]
+
+    Similarly,
+
+    \begin{align*}\begin{bmatrix}1&-2i\\2i&-2\end{bmatrix}
+         & = \begin{bmatrix}\frac{1}{2}&0\\0&0\end{bmatrix}+\begin{bmatrix}-\frac{1}{2}&1\\1&2\end{bmatrix}      \\
+         & = -3\begin{bmatrix}\frac{1}{5} & \frac{-2i}{5}\\\frac{2i}{5}&\frac{4}{5}\end{bmatrix} + 2\begin{bmatrix}\frac{4}{5} & \frac{2i}{5}\\\frac{-2i}{5}&\frac{4}{5}\end{bmatrix}
+    \end{align*}
+\end{example}
+
+Note that a real matrix can have complex eigenvalues. For example
+
+\[\spec\begin{bmatrix}0&-1\\1&0\end{bmatrix} = \set{i, -i}\]
+
+\subsection{Functional Calculus}
+For a normal operator $A$, we have
+\[A = U^*D_u U = \sum \lambda_i E_i\]
+where
+\[D_u = \begin{bmatrix}
+        u_1                  \\
+         & u2                \\
+         &    & \ddots       \\
+         &    &        & u_n
+    \end{bmatrix}\]
+for $u_i \in \spec(A)$.
+
+For a function $f:\spec(A) \to \complexnums$, define
+\[f(A) = U^*\begin{bmatrix}
+        f(u_1)                     \\
+         & f(u2)                   \\
+         &       & \ddots          \\
+         &       &        & f(u_n)
+    \end{bmatrix}U = \sum f(\lambda_i) E_i\]
+
+This can be justified as follows. Notice that
+
+\begin{align*}A^k
+     & = \underbrace{A\cdot A\cdot \dots \cdot A}_{k\hbox{ times}}          \\
+     & = \underbrace{(U^*D_uU)(U^*D_uU)\dots(U^*D_uU)}_{k\hbox{ times}}     \\
+     & = U^*\underbrace{D_u(UU^*)D_u(UU^*)\dots(UU^*)D_u}_{k\hbox{ times}}U \\
+     & = U^*D_u^kU
+\end{align*}
+
+Thus, for polynomial $f(x) = a_0x^k + a_1x^{k-1} + \dots + a_{k - 1}X + a_k$,
+\begin{align*}f(A)
+     & = a_0A^k + a_1A^{k-1} + \dots + a_{k - 1}A + a_k                                                                \\
+     & = a_0U^*D_u^kU + a_1U^*D_u^{k-1}U + \dots + a_{k-1}U^*D_uU                                                      \\
+     & = U^*a_0D_u^kU + U^*a_1D_u^{k-1}U + \dots + a_{k-1}U^*a_1D_uU                                                   \\
+     & = U^*\left(a_0D_u^k + a_1D_u^{k-1} + \dots + a_{k - 1}D_u + a_k\right)U                                         \\
+     & = U^*\left(\begin{bmatrix}a_0u_1^k\\&a_0u_2^k\\&&\ddots\\&&&a_0u_n^k\end{bmatrix} + \begin{bmatrix}a_1u_1^{k-1}\\&a_0u_2^{k-1}\\&&\ddots\\&&&a_0u_n^{k-1}\end{bmatrix} + \dots + \begin{bmatrix}a_0\\&a_0\\&&\ddots\\&&&a_0\end{bmatrix}\right)U \\
+     & = U^*\begin{bmatrix}
+        f(u_1)                     \\
+         & f(u2)                   \\
+         &       & \ddots          \\
+         &       &        & f(u_n)
+    \end{bmatrix}U
+\end{align*}
+
+Now, for a general function $f:\spec(A) \to \complexnums$, there exists a polynomial sequence
+$P_k$ that converges to $f$ uniformly. Then
+\[P_k(A) \to f(A)\]
+and
+\[U^*\begin{bmatrix}
+        P_k(u_1)                       \\
+         & P_k(u2)                     \\
+         &         & \ddots            \\
+         &         &        & P_k(u_n)
+    \end{bmatrix}U\to U^*
+    \begin{bmatrix}
+        f(u_1)                     \\
+         & f(u2)                   \\
+         &       & \ddots          \\
+         &       &        & f(u_n)
+    \end{bmatrix}U\]
+
+\begin{example}
+    Let $f(x) = e^x$, then
+    \[(A) = e^A = \sum_{n=0}^{\infty} \frac{1}{n!}A^n\]
+    Taking $A = \begin{bmatrix}&t\\t\end{bmatrix}$,
+    \[e^A = \begin{bmatrix}\cos{t} & \sin{t}\\-\sin{t} & \cos{t}\end{bmatrix}\]
+
+    Similarly, taking $f(x) = \sqrt{x}$ and $A \geq 0$, $f(A) = \sqrt{A}$ is
+    the unique positive operator such that $A^2 = A$. Taking $A = \begin{bmatrix}1&0\\0&2\end{bmatrix}$,
+    we have
+    \[\sqrt{A} = \begin{bmatrix}1&0\\0&\sqrt{2}\end{bmatrix}\]
+
+    We can also define $\abs{A} = \sqrt{A^*A}$.
+\end{example}zath
+
+For any $f, g:\spec(A) \to \complexnums$, $f(A)g(A) = fg(A) = g(A)f(A)$.
+
+We can similarly define $f(t) = \log(t)$ and $f(t) = t\log(t)$ on positive operators
+
+\begin{align*}
+    \log{A}  & = U^*\begin{bmatrix}\log{u_1}\\&\log{u_2}\\&&\ddots\\&&&\log{u_n}\end{bmatrix}U \\
+    A\log{A} & = U^*\begin{bmatrix}u_1\log{u_1}\\&u_1\log{u_2}\\&&\ddots\\&&&u_n\log{u_n}\end{bmatrix}U
+\end{align*}
+
+In general $AB \neq BA$. However, if $A$ and $B$ are diagonal, then $AB = BA$. More specifically,
+$AB = BA$ if and only if there exists a unitary operator $U$ such that $A = UD_1U^*$ and $B = UD_2U^*$
+for some diagonal matrices $D_1$ and $D_2$.
