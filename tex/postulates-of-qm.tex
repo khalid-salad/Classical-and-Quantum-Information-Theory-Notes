@@ -1,1 +1,324 @@
 \section{Postulates of Quantum Mechanics}
+
+Direct's Bra-cket Notation.
+
+Given a vector $u = \begin{pmatrix}u_1\\u_2\\\vdots\\u_n\end{pmatrix}\in\complexnums^n$,
+we write $\ket{u}$, prounounced ``ket'' $u$.
+
+For $v \in (\complexnums)^* = \linop{\complexnums^n}{\complexnums}$, We denote by $\bra{v}$, proununced ``bra'' $v$,
+\[v = \begin{pmatrix}\conj{v_1}&\conj{v_2}&\dots&\conj{v_n}\end{pmatrix} = \begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix}^*\]
+
+Notice that
+\begin{align*}\bra{u}\ket{v}
+     & = \begin{pmatrix}\conj{u_1}&\conj{u_2}&\dots&\conj{u_n}\end{pmatrix}\begin{pmatrix}v_1\\v_2\\\vdots\\v_n\end{pmatrix} \\
+     & = \sum_{i=1}^n\conj{u_i}v_i                          \\
+     & = \innerproduct{u}{v}
+\end{align*}
+hence we denote it $\bracket{u}{v}$.
+
+Similarly,
+
+\[\underset{\linop{\complexnums}{\complexnums^n}}{\ket{u}^*} = \underset{\linop{\complexnums^n}{\complexnums}}{\bra{u}}\]
+
+Finally, write
+\[\ket{1} = \begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix}\quad\ket{2} = \begin{pmatrix}1\\2\\\vdots\\0\end{pmatrix} \dots\]
+
+How it works:
+
+\begin{enumerate}[label=\arabic*)]
+    \item Inner Product: $\bracket{u}{v}$
+    \item Matrix Action: $\bra{u}A\ket{v} = \innerproduct{u}{Av}$
+    \item Rank one operator: $E_{u,v} = \underset{\hbox{outer product}}{\ket{u}\bra{v}}$ with
+          \begin{align*}E_{u, v}\left(\ket{w}\right)
+               & = \left(\ket{u}\bra{v}\right)\ket{w} \\
+               & = \ket{u}\bracket{v}{w}              \\
+               & = \bracket{v}{w}\ket{v}
+          \end{align*}
+    \item General Operator: $A = \sum a_i\ket{u_i}\bra{v_i}$
+
+          e.g. \begin{align*}A
+               & = \begin{bmatrix}a_{ij}\end{bmatrix}     \\
+               & = \sum_{ij}a_{ij}\ket{i}\bra{j}
+          \end{align*}
+          Notice that $\set{\ket{i}}$ are the elements of the standard basis.
+    \item Matrix multiplication:
+          \begin{align*}
+              A  & = \sum a_i\ket{u_i}\bra{v_i}                             \\
+              B  & = \sum b_{j}\ket{w_j}\bra{x_j}                           \\
+              AB & = \sum_{i,j} a_ib_j \ket{u_i}\bracket{v_i}{w_j}\bra{x_j} \\
+                 & = \sum_{i,j}a_ib_j \bracket{v_i}{w_j}\ket{u_i}\bra{x_j}
+          \end{align*}
+          Notice that $\bracket{v_i}{w_j} \in \complexnums$.
+    \item Diagonal operator: $\underset{\hbox{orthogonal decomposition}}{A = \sum\lambda_i\ket{v_i}\bra{v_i}}$
+          with eigenvalues $\lambda_i$ and eigenvectors $\ket{v_i}$ of $A$.
+\end{enumerate}
+
+Recall the Spectral Theorem
+\begin{enumerate}
+    \item $A$ positive $\implies$ $\lambda_i \geq 0$
+    \item $A$ Hermitian $\implies$ $\lambda_i \in \reals$
+    \item $A$ projection $\implies$ $\lambda_i \in \set{0, 1}$
+    \item $A$ unitary $\implies$ $\abs{\lambda_i} = 1$ for all $i$
+\end{enumerate}
+
+Postulates are working assumptions under a framework or model (see Feynmann's
+vide on difference between mathematics and physics \url{https://www.youtube.com/watch?v=obCjODeoLVw}).
+
+\begin{tikzpicture}
+    \node (rw) {Real World};
+    \node[right=4cm of rw] (qm) {Quantum Mechanics using Mathematics};
+    \draw[->] (rw) to node[pos=0.5,above](p) {Postulates} (qm);
+    \node[below=0.5cm of p] (exp) {Experiments/Theory};
+    \draw[->] (exp.north) -- (p.south);
+\end{tikzpicture}
+
+\begin{enumerate}[label=Postulate \arabic*.]
+    \item (State Space) Any isolated (quantum) system is associated a $\complexnums$
+          Hilbert Space as its \emph{state space}. The state of a system is given by a unit vector
+          $\ket{\phi}$ with $\norm{\ket{\phi}} = 1$, called the \emph{state vector}.
+
+          For example, $\complexnums^2 = \set{a\ket{0} + b\ket{1}}$.
+
+          The basis $\ket{0}, \ket{1}$ is called the \emph{logic} basis. Another basis
+          is $\ket{+} = \frac{\ket{0} + \ket{1}}{\sqrt{2}}$, $\ket{-} = \frac{\ket{0} - \ket{1}}{\sqrt{2}}$.
+
+          Superposition: $\ket{\phi} = a\ket{0} + b\ket{1}$, unit/state $\iff \abs{a}^2 + \abs{b}^2 = 1$.
+
+          $\ket{\phi} = e^{i\delta}\cos\frac{\theta}{2}\ket{0} + e^{i(\delta+\psi)}\sin\frac{\theta}{2}\ket{1}$ describes
+          the Bloch Sphere, with $0 \leq \delta \leq 2\pi$, $0 \leq \theta \leq \pi$, and
+          $0 \leq \psi \leq 2\pi$. $e^{\i\delta}$ is the global phase, not physically relevant.
+          $\psi$ is the relative phase, physical.
+
+          %TODO draw bloch sphere
+
+          Example: 1-dim wave function %TODO finish 1-dim wave function, double slit, etc.
+
+    \item (Measurement) Quantum Information Form --- every quantum measurement is given
+          by a collection $\set{E_m}$ of measurement operators satisfying the completeness
+          equation $\sum E_m = I$ with $E_m \geq 0$. The set $\set{E_m}$ is called a
+          Positive Operator-Valued Measurement (POVM).
+
+          The probability of seeing an outcome $m$ is given by \[\bra{\phi}E_m\ket{\phi}\]
+          with
+          \[\sum_{m}\bra{\phi}E_m\ket{\phi} = 1\]
+          for any $\phi$. Notice this implies $\sum E_m = I$.
+
+          Pose measurement state: \[\frac{E_m\ket{\phi}}{\norm{E_m\ket{\phi}}} = frac{E_m\ket{\phi}}{\sqrt{\bra{\phi}E_m\ket{\phi}}}\]
+
+          Example: Shr\:{o}dinger's Cat %TODO add figure
+
+          Set $\ket{\phi} = \frac{1}{\sqrt{2}}\ket{0} + \frac{1}{\sqrt{2}}\ket{1}$,
+          $E_0 = \ket{0}\bra{0}$, $E_1 = \ket{1}\bra{1}$. After measurement, $\frac{1}{2}$
+          prob, $E_0\ket{\phi} = \frac{1}{\sqrt{2}}\ket{0}$, $E_1\ket{\phi} = \frac{1}{\sqrt{2}}\ket{1}$.
+
+          A \emph{projection value measurement} (PVM) is a set of mutually orthogonal projections
+          $\set{P_m}$ such that $\sum P_m = 1$. For example, taking $\set{\ket{v_i}}$ to be some
+          orthonormal basis, the set $\set{E_i = \ket{v_i}\bra{v_i}}$ is a PVM.
+
+          Quantum Mechanics version: every observable corresponds to a Hermitian operator ($\inf$-dim).
+          The only values that will be observed are eigenvalues.
+
+          \begin{example}[Position Operator]
+              The position operator is defined
+              \[\phi(x) \to x\phi(x)\]
+              For example,
+              $e^{-\frac{x^2}{2}} \to xe^{-\frac{x^2}{2}}$
+              has expected position $\bra{\phi}X\ket{phi}=\int_{-\infty}^{\infty}X\abs{\phi(x)^2}dx$
+              \begin{tikzpicture}[scale=1]
+                  \begin{axis}[
+                          axis lines = left,
+                          x label style={at={(axis description cs:0.5,-0.1)}},
+                          xlabel = $p$,
+                          ylabel = $\binentropy{p}$,
+                          xmin = -10,
+                          ymin = 0,
+                          xmax = 10,
+                          ymax = 1,
+                          % xmajorticks=false,
+                          % ymajorticks=false,
+                      ]
+                      \addplot [
+                          domain=-10:10,
+                          samples=10000,
+                          color=red,
+                          thick,
+                      ]
+                      {exp(-x^2 / 2)};
+                  \end{axis}
+              \end{tikzpicture}
+          \end{example}
+          We can similarly define the momentum operator $P = -i\planck\frac{\partial}{\partial x}$, where
+          \planck is the Planck Constant, and the kinetic energy operator
+          \[H = -\frac{\planck^2}{2m}\frac{\partial}{\partial x^2}\] where $m$ is the
+          mass.
+
+          In finite dimensional space, $A = A^*$ (Hermitian) implies $A = \sum \lambda_i E_I$
+          with $\set{E_i}$ a PVM. If $\ket{\phi_i}$ is an eigenvector of $\lambda_i$, then
+          $\bra{\phi_i}A\ket{\phi_i} = \lambda_i$, hence all $\lambda_i$ are real.
+    \item (Evolution) The evolution of a closed quantum system is described by a unitary, $\ket{\phi} \to U\ket{\phi}$.
+
+          For example,
+
+          \begin{align*}
+              X & = \begin{bmatrix}0 & 1\\1&0\end{bmatrix}\quad X\ket{0} = \ket{1} \quad X\ket{1} = \ket{1} \hbox{ bit flip}                        \\
+              Z & = \begin{bmatrix}1 & 0\\0&-1\end{bmatrix}\quad Z\ket{0} = \ket{0} \quad Z\ket{1} = -\ket{1} \hbox{ phase flip}                     \\
+              H & = \frac{1}{\sqrt{2}}\begin{bmatrix}1 & 1\\1&-1\end{bmatrix}\quad H\ket{0} = \ket{+} \quad H\ket{1} = \ket{-} \hbox{ Hadamard gate}
+          \end{align*}
+          Why unitary? $\ket{\phi} \to \ket{\psi} = U\ket{\phi}$ so $\norm{U\ket{\phi}} = \norm{\ket{\phi}}$ for all $\ket{\phi}$.
+
+    \item[Postulate 3.1] The time evolution of a closed system is given by Schr\:{o}dinger's Equation
+        \[i\planck \frac{d\ket{\psi(t)}}{dt} = H\ket{\psi(t)}\]
+        $\bra{\psi}H\ket{\psi}$ is the expected energy.
+        \begin{enumerate}[label=\arabic*)]
+            \item $H(t)$ time dependent
+            \item $H(t) \identically H$ time independent
+        \end{enumerate}
+        $\ket{\psi(t)} = e^{iHt}\ket{\psi(0)}$
+
+        $H$ hermitian $\implies$ $e^{iHt}$ is unitary
+
+        For example: $H = \sum_{E} E\ket{\phi_E}\bra{\phi_E}$\quad $\ket{\phi_e}$ energy basis
+
+        $e^{iHt}\ket{E} = e^{iEt}\ket{E}$\quad$\ket{\phi} = \sum a_E \ket{E}$\quad $e^{iHt} = \sum a_E e^{iEt}\ket{\phi_e}$
+    \item (Composite System) The state of a composite system is a tensor product
+          of the state space
+\end{enumerate}
+
+\begin{definition}[Tensor Product Space]
+    Given $V = \complexnums^{\vecspace{X}}$ and $W = \complexnums^{\vecspace{Y}}$,
+    \begin{align*}
+        V \tensorprod W = \complexnums^{\vecspace{X} \times \vecspace{Y}} = \set{\phi \suchthat \vecspace{X} \times \vecspace{Y} \to \complexnums}                    \\
+        \phi \tensorprod \psi(x, y) = \phi(x)\psi(y)                                                                                                                  \\
+        \ket{\phi}\tensorprod\ket{\psi}                                                                                                                               \\
+        V \tensorprod W = \spanset\set{\ket{\phi} \tensorprod \ket{\psi} \suchthat \ket{\phi} \in V, \ket{\psi} \in W}                                                \\
+        \alpha\left(\ket{\phi}\tensorprod\ket{\psi}\right) = \alpha\ket{\phi}\tensorprod\ket{\psi} = \ket{\psi}\tensorprod\alpha\ket{\psi}                            \\
+        \alpha\ket{\phi_1}\tensorprod \ket{\phi} + \beta\ket{\phi_2}\tensorprod\ket{\psi} = \left(\alpha\ket{\phi_1} + \beta\ket{\phi_2}\right)\tensorprod \ket{\psi} \\
+        \left(\bar{\phi_1}\tensorprod\bar{\phi_2}\right)\left(\ket{\psi_1}\tensorprod\ket{\psi_2}\right) = \bracket{\phi_1}{\psi_1}\bracket{\phi_2}{\psi_2}
+    \end{align*}
+    Given $\set{\ket{v_i}} \subseteq \vecspace{V}$, $\set{\ket{w_j}}\subseteq\vecspace{W}$ orthonormal bases,
+    the set $\set{\ket{v_i}\tensorprod\ket{w_j} \suchthat 1 \leq i \leq n, 1 \leq j \leq m}$ is an orthonormal basis
+    of $\vecspace{V} \tensorprod \vecspace{W}$. So $\dim\left(\vecspace{V} \tensorprod \vecspace{W}\right) = \dim\vecspace{V}\dim\vecspace{W}$
+\end{definition}
+
+\begin{example}[Product State]
+    Take $V_1 = V_2 = \complexnums^2$. Then
+    \begin{align*}
+        \ket{0} \tensorprod \ket{0} & = \ket{00} \\
+        \ket{0} \tensorprod \ket{1} & = \ket{01} \\
+        \ket{1} \tensorprod \ket{0} & = \ket{10} \\
+        \ket{1} \tensorprod \ket{1} & = \ket{11} \\
+    \end{align*}
+    And
+    \begin{align*}
+        \ket{\phi}                        & = a\ket{0} + b\ket{1}                                                 \\
+        \ket{\psi}                        & = \alpha\ket{0} + \beta\ket{1}                                        \\
+        \ket{\phi} \tensorprod \ket{\psi} & = a\alpha\ket{00} + a\beta\ket{01} + b\alpha\ket{10} + b\beta\ket{11}
+    \end{align*}
+\end{example}
+
+\begin{example}[Entangled State]
+    \begin{align*}
+        \ket{\Phi^+} & = \frac{1}{\sqrt{2}}\left(\ket{0}\tensorprod\ket{0} + \ket{1}\tensorprod\ket{1}\right) \\
+                     & = \frac{1}{\sqrt{2}}\left(\ket{00} + \ket{11}\right)                                   \\
+        \ket{\Phi^-} & = \frac{1}{\sqrt{2}}\left(\ket{00} - \ket{11}\right)                                   \\
+        \ket{\Psi^+} & = \frac{1}{\sqrt{2}}\left(\ket{01} + \ket{10}\right)                                   \\
+        \ket{\Psi^-} & = \frac{1}{\sqrt{2}}\left(\ket{01} - \ket{10}\right)
+    \end{align*}
+\end{example}
+
+The vectors $\ket{\Phi^+}$, $\ket{\Phi^-}$, $\ket{\Psi^+}$, $\ket{\Psi^-}$ form an
+orthonormal basis of $\complexnums^2 \times \complexnums^2 \isomorphic \complexnums^4$. The state
+is called \emph{entangled} because $\ket{\Psi^+} \neq \ket{\phi} \tensorprod \ket{\psi}$ for any
+$\ket{\phi}$, $\ket{\psi}$, i.e., it cannot be expressed as a product state.
+
+Operations on Tensor Product System
+\[A \in \boundop{\complexnums^n} \quad B\in\boundop{\complexnums^m}\]
+
+Define $(A\tensorprod B)\ket{\phi}\tensorprod\ket{\psi} = A\ket{\phi}\tensorprod B\ket{\psi}$.
+
+\[A \tensorprod B \in \boundop{\complexnums^n \tensorprod \complexnums^m} = \spanset\set{A \tensorprod B \suchthat A \in \boundop{\complexnums^n}, B\in\boundop{\complexnums^m}}\]
+
+\begin{definition}[Product Measurement]
+    \[A \in \boundop{\complexnums^n} \quad B\in\boundop{\complexnums^m}\]
+    \begin{align*}
+        (A \tensorprod B)^* = A^* \tensorprod B^* = A \tensorprod B\hbox{ is Hermitian in $\boundop{\complexnums^n \tensorprod \complexnums^m}$} \\
+        \bra{\phi}\tensorprod \bra{\psi}\left(A \tensorprod B\right)\ket{\phi}\ket{\psi} = \bra{\phi}A\ket{\phi} \bra{\psi}B\ket{\psi}
+    \end{align*}
+    $\bra{\phi}A\ket{\phi}$ is the expectation of observable $A$ given $\phi$ and
+    $\bra{\psi}B\ket{\psi}$ is the expectation of observable $B$ given $\psi$.
+\end{definition}
+
+Given POVMs $E_i$ and $F_j$, we have
+\begin{align*}
+    \sum E_i                 & = I_1                 \\
+    \sum F_j                 & = I_2                 \\
+    \sum E_i \tensorprod F_j & = I_1 \tensorprod I_2
+\end{align*}
+and $E_i \geq 0$, $F_j \geq 0$, and $E_i \tensorprod F_j \geq 0$.
+
+\begin{definition}[Partial Measurement]
+    Given $A \in \boundop{\complexnums^n}$,
+    \begin{align*}\bra{\phi}\tensorprod\bra{\psi} A \tensorprod I \ket{\phi}\tensorprod\ket{\psi}
+         & = \bra{\phi}A\ket{\phi}\bracket{\psi}{\psi} \\
+         & = \bra{\phi}A\ket{\phi}
+    \end{align*}
+    or
+    \[\sum_m E_m = I \quad \bra{\phi}\bra{\psi}(E_m \tensorprod I)\ket{\psi}\ket{\phi} = \bra{\phi}E_m\ket{\phi}\]
+\end{definition}
+
+\begin{align*}
+    \hbox{Product State}   & \sim \hbox{independent measurement outcome} \\
+    \hbox{Entangled State} & \sim \hbox{correlated measurement outcome}
+\end{align*}
+
+\begin{example}
+    Given
+    \begin{align*}
+        E_0          & = \ket{0}\bra{0}                       \\
+        E_1          & = \ket{1}\bra{1}                       \\
+        E_+          & = \ket{+}\bra{+}                       \\
+        E_-          & = \ket{-}\bra{-}                       \\
+        \ket{\Phi^+} & = \frac{\ket{00} + \ket{11}}{\sqrt{2}}
+    \end{align*}
+    Then
+    \begin{align*}
+        \bra{\Phi^+}E_0\tensorprod I\ket{\Phi^+}                 & = \frac{1}{2} = \bra{\Phi^+}I \tensorprod E_0\ket{\Phi^+}    \\
+        \bra{\Phi^+}E_1\tensorprod I\ket{\Phi^+}                 & = \frac{1}{2} = \bra{\Phi^+}I \tensorprod E_1\ket{\Phi^+}    \\
+        \bra{\Phi^+}E_i \tensorprod E_j\tensorprod I\ket{\Phi^+} & = \begin{cases}\frac{1}{2} &\hbox{ if $i = j$, not independent on $i$, $j$}\\0 &\hbox{ if $i \neq j$}\end{cases}                                 \\
+        \bra{\Phi^+}E_i\tensorprod E_{\pm}\ket{\Phi^+}           & = 0 \hbox{ for $i = 1, 2, \dots$}                            \\
+        \bra{\Phi^+}A \tensorprod I\ket{\Phi^+}                  & = \frac{1}{2} \bra{0}A\ket{0} + \frac{1}{2}\bra{1}A\ket{1}   \\
+                                                                 & \neq\bra{\phi}A\ket{\phi}\forall \ket{\phi}\in\complexnums^n
+    \end{align*}
+\end{example}
+
+The observation of $\ket{\Phi^+} \in \complexnums^n \tensorprod \complexnums^n$ on the first system does not match
+any vector state. Does this violate postulate 1?
+
+No, because a \emph{closed system} has a vector state $\ket{\phi}$. The state of a general
+system is given by a \emph{density operator}.
+
+A vector state $\ket{\phi} \in \complexnums^n$ is also called a \emph{pure} state.
+
+In general, a quantum system can have mixed state, given by $\set{p_i, \ket{\psi_i}}$, an
+\emph{ensemble} or pure states. $p_i$ is the probability the system is in $\ket{\psi_i}$.
+Then \[P = \sum p_i\ket{\psi_i}\bra{\psi_i}\]
+is the \emph{density operator}.
+
+\begin{example}
+    If $P = \ket{\phi}\bra{\phi}$ \dots %TODO can't read the notes
+\end{example}
+
+\begin{enumerate}[label=Postulate \arabic*]
+    \item (State) The state of a quantum system is completely determined by a density
+          operator $P$ acting on the state space of the system
+          \[P = \sum p_i\ket{\psi_i}\bra{\psi_i}\]
+          if the system is of probability $p_i$ in the pure state $\ket{\psi_i}$.
+    \item (Measurement) A POVM $\set{E_m}$ has probability of
+          \[\prob{m} = \trace(PE_m)\]
+          to be outcome $E_m$.
+
+          (Observable) The expected value of an observable $A = A^*$ in a given
+          state $P$ is $\trace(PA)$.
+    \item (Evolution) The unitary evolution of a closed quantum system is
+          given by \[P \to UPU^*\]
+\end{enumerate}
