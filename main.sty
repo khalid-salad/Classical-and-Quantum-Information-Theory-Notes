@@ -324,6 +324,9 @@ overlay={\begin{tcbclipinterior}
 \DeclareMathOperator{\spec}{spec}
 \DeclareMathOperator{\trace}{tr}
 
+\newcommand{\cir}[1]{\tikzexternaldisable\tikz[baseline]{%
+    \node[anchor=base, draw, circle, inner sep=0, minimum width=1.2em]{#1};}\tikzexternalenable}
+
 % Todo stuff
 \usepackage[obeyFinal]{todonotes}
 \makeatletter
