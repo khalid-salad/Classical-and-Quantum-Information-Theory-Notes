@@ -9,4 +9,190 @@ $\bra{\phi}A\tensorprod I\ket{\phi}$, e.g.,
                                            & \overset{?}{=} \bra{\phi}A\ket{\phi}\hbox{ for some $\ket{\phi} \in \complexnums^2$}
 \end{align*}
 
-No, any $\alpha\ket{1} + \beta\ket{0} = \ket{\phi}$, then
+No, for any $\alpha\ket{1} + \beta\ket{0} = \ket{\phi}$,
+\begin{align*}\bra{\phi}A\ket{\phi}
+     & = \abs{\alpha}^2\bra{0A\ket{0}} + \abs{\beta}^2\bra{1}A\ket{1} + \alpha\conj{\beta}\bra{1}A\ket{0} + \beta\alpha\bra{0}A\ket{1} \\
+     & = \abs{\alpha}^2a_{00} + \abs{\beta}^2a_{01} + \alpha\conj{\beta}a_{10} + \beta\alpha a_{11}
+\end{align*}
+
+Then what is the state for $\bra{\Phi^+}A\tensorprod I\ket{\Phi^+} = \frac{1}{2}\bra{0}A\ket{0} + \frac{1}{2}\bra{1}A\ket{1}$?
+
+In general, the state of a quantum system can be described by $\set{p_i, \ket{\psi_i}}$,
+an ensemble of pure states, where $p_i$ is the probability system in $\ket{\psi_i}$,
+e.g.,
+\[\bra{\Phi^+}A\tensorprod I\ket{\Phi^+} = \frac{1}{2}\bra{0}A\ket{0} + \frac{1}{2}\bra{1}A\ket{1} \rightsquigarrow \set{\left(\frac{1}{2},\ket{0}\right), \left(\frac{1}{2},\ket{1}\right)}\]
+
+A vector space $\set{\ket{\phi}}$ corresponds to the single ensemble $\set{1, \ket{\phi}}$.
+
+Given an ensemble $\set{p_i, \ket{\phi_i}}$, then
+\begin{align*}
+    \hbox{expected value of }A = A^* & : \sum_i p_i\bra{\phi_i}A\ket{\phi_i}                                     \\
+    \hbox{POVM} \set{E_m}            & : \sum_i p_i\bra{\phi_i}E_m\ket{\phi_i}\hbox{ probability of outcome $m$} \\
+    \hbox{Unitary Transformation}    & : \set{p_i, \ket{\phi_i}} \xrightarrow{U} \set{p_i, U\ket{\phi_i}}
+\end{align*}
+
+However, in terms of measurement, the ensemble representation is not unique. For any
+obversable $A = A^*$,
+\[\frac{1}{2}\bra{+}A\ket{+} + \frac{1}{2}\bra{-}A\ket{-} = \frac{1}{2}\bra{0}A\ket{0} + \frac{1}{2}\bra{1}A\ket{1}\]
+So, from physics measurement, we can not distinguish
+\begin{align*}
+    \set{\left(\frac{1}{2}, \ket{0}\right), \left(\frac{1}{2}, \ket{1}\right)}
+    \set{\left(\frac{1}{2}, \ket{+}\right), \left(\frac{1}{2}, \ket{-}\right)}
+\end{align*}
+
+What is really unique here is the notation of state (in mathematics).
+\[\phi:\boundop{\complexnums^n} \to \complexnums, \phi(A) = \bra{\Phi^+}A\tensorprod I\ket{\Phi^+}\]
+$\phi$ is linear, so $\phi \in \linop{\boundop{\complexnums^n}}{\complexnums} = \boundop{\complexnums}^*$.
+
+Recall that, for a vector space $\vecspace{V}$, the dual space
+is $\vecspace{V}^* = \linop{\vecspace{V}}{\complexnums}$.
+
+\begin{example}
+    Take
+    \[\vecspace{V} = \complexnums^n = \set{\begin{pmatrix}u_1\\\vdots\\u_n\end{pmatrix}\suchthat u_i\in\complexnums}\]
+    Then
+    \[\vecspace{V}^* \isomorphic \complexnums^n = \set{\begin{pmatrix}v_1&\dots&v_n\end{pmatrix}\suchthat v_i\in\complexnums}\]
+\end{example}
+
+\[\begin{pmatrix}v_1&\dots&v_n\end{pmatrix} : \complexnums^n \to \complexnums\]
+\[\begin{pmatrix}v_1&\dots&v_n\end{pmatrix}\begin{pmatrix}u_1\\\vdots\\u_n\end{pmatrix} = \sum_{i=1}^nv_iu_i\hbox{ linear functional}\]
+
+Given $e_1 = \begin{pmatrix}1\\0\\\vdots\\0\end{pmatrix}$, $e_2 = \begin{pmatrix}0\\2\\\vdots\\0\end{pmatrix}$, \dots, $e_n = \begin{pmatrix}0\\0\\\vdots\\1\end{pmatrix}$ basis, there exists $\set{e_i^*} \subseteq \vecspace{V}^*$,
+a dual basis, such that \[e_i^*(e_j) = \delta_{ij} = \begin{cases}1 & \hbox{ if $i=j$}\\0 & \hbox{ if $i\neq j$}\end{cases}\]
+
+Indeed, $e_i^* = \begin{pmatrix}1&0&\dots&0\end{pmatrix}$.
+\begin{theorem}
+    If $\dim\vecspace{V} < \infty$, then $\vecspace{V} \isomorphic \vecspace{V}^*$.
+\end{theorem}
+
+Now, consider $\vecspace{V} = \boundop{\complexnums^n} \isomorphic \matrices_n$.
+What is $\vecspace{V}^*$?
+
+Recall the trace functional: $\trace((a_{ij})) = \sum a{ii}$ or, equivalently,
+$\trace(A) = \sum_i \bra{e_i}A\ket{e_i}$
+
+The trace is
+\begin{enumerate}[label=\arabic*)]
+    \item Independent of Basis
+    \item Satisfies the \emph{tracial property}
+\end{enumerate}
+
+\begin{theorem}[Tracial Property]
+    For all $A, B$ in $\matrices_n(\complexnums)$ and unitary $U$
+    \begin{enumerate}[label=\arabic*)]
+        \item $\trace(AB) = \trace(BA)$
+        \item $\trace(U^*AU) = \trace(A)$
+        \item $\trace(A) = \sum_i \bra{\phi_i}A\ket{\phi_i}$ for any orthonormal basis $\set{\ket{\phi_i}}$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}\mbox{}
+    \begin{enumerate}[label=\arabic*)]
+        \item Write $A = (a_{ij})$, $B = (b_{ij})$. Then
+              \begin{align*}
+                  AB & = \left(\sum_k a_{ik}b_{kj}\right)_{ij}             \\
+                  BA & = \left(\sum_{\ell} b_{i\ell}a_{\ell j}\right)_{ij} \\
+              \end{align*}
+    \end{enumerate}
+    %TODO finish proof of tracial property
+\end{proof}
+
+\begin{lemma}
+    $\matrices_n \isomorphic \matrices_n^*$ by the following bijection:
+    $f\in\matrices_n^* \leftrightarrow \hbox{ operator $X_f$ such that $f(A) = \trace(AX)$}$
+\end{lemma}
+
+To see this in an elementary way, consider basis
+\[\set{E_{ij} = \ket{i}\bra{j}}\subseteq \matrices_n\]
+and dual basis
+\[\set{f_{ij}(e_{k\ell})} = \delta_{(ij)(k\ell)}\]
+then
+\[f_{ij} \leftrightarrow E_{ji}\in\matrices_n\]
+i.e., there is a one-to-one correspondence between $f_{ij}$ and $E_{ji}$. Then
+\begin{align*}f_{ij}(A)
+     & = \trace\left(A\bra{j}\ket{i}\right)                                            \\
+     & = \trace\left(\sum a_{k\ell}\ket{k}\bra{\ell}\left(\ket{j}\bra{i}\right)\right) \\
+     & = a_{ij}
+\end{align*}
+
+Thus, $\spanset\set{E_{ji}} = \matrices_n = \matrices_n^*$.
+
+Now, for $\ket{\phi} \in \complexnums^n\tensorprod\complexnums^n$,
+$\phi(A) = \bra{\phi}A\tensorprod I\ket{\phi}$ corresponds to an operator $P$ such that
+$\phi(A) = \trace(AP)$.
+
+The operator $\phi$ has the following properties:
+\begin{enumerate}[label=\arabic*)]
+    \item\label{item:linpos} if $A \geq 0$ and $A \tensorprod I \geq 0$, then $\phi(A) \geq 0$
+    \item\label{item:linidis1} $\phi(I) = \bra{\phi}I\tensorprod I\ket{\phi} = \bracket{\phi}{\phi}=1$
+\end{enumerate}
+
+A linear function that satisfies \cref{item:linpos,item:linidis1} is called a seate (sp?).
+
+What property should the operator $P$ have?
+
+\begin{enumerate}[label=\arabic*)]
+    \item $\trace(PA) = \bra{\phi}A\tensorprod I\ket{\phi} \geq 0 \implies P \geq 0$ (choose $A = \ket{h}\bra{h}$)
+    \item $\trace(PI) = \trace(P) = 1$
+\end{enumerate}
+
+$P \geq 0 \implies P = \sum P_i\ket{\psi_i}\bra{\psi_i}$, $P_i\geq 0$ (by orthogonal decomposition)
+
+$\trace(P) = 1 \implies \sum P_i = 1$ (by basis independence of trace)
+
+A state of a quantum system $\complexnums^n$ can be equivalently described by one of the following
+
+\begin{enumerate}[label=\protect\cir{\arabic*}]
+    \item An ensemble of pure states $\set{p_i, \ket{\psi_i}}$ with $\sum p_i = 1$, $p_i \geq 0$, $\ket{\psi_i} \in \complexnums^n$
+    \item A density operator $P \in \boundop{\complexnums^n}$ such that $P \geq 0$ and $\trace(P) = 1$
+    \item A linear functional $\phi:\boundop{\complexnums^n} \to \complexnums$ with $\phi(1) = 1$ and $\phi(A) \geq 0$ if $A \geq 0$
+    \item A state vector $\ket{\phi} \in \complexnums^n \times \complexnums^m$ for some $m$
+\end{enumerate}
+
+%TODO figure for equivalence of above
+
+Examples:
+\begin{enumerate}[label=\protect\cir{\arabic*}]
+    \item Pure state = vector state: $\ket{\phi} \leftrightarrow \phi(A) = \bra{\phi}A\ket{\phi} \leftrightarrow P = \ket{\phi}\bra{\phi}$ density operator
+    \item A mixed state $P \ sum p_i\ket{\phi_i}\bra{\phi_i}$ with $\set{\ket{\phi_i}}$ orthogonal and $\sum p_i = 1$, $p_i \geq 0$
+
+          Mixed state are convex combination of pure state. If $p_i = 1$ and $p_j = 0$ for all $j \neq i$, then
+          $P = \ket{\phi_i}\bra{\phi_i}$ pure state.
+
+          For $\complexnums^n$, $p_i = \frac{1}{n}$,
+          $P = \sum \frac{1}{n} \ket{\phi_i}\bra{\phi_i} = \frac{1}{n}I$, completely mixed state
+          (like uniform distribution $\begin{pmatrix}\frac{1}{n}&\frac{1}{n}&\dots&\frac{1}{n}\end{pmatrix}$)
+    \item Hat state: $P$ projection, then \[P = \frac{P}{\trace(P)} = \frac{1}{\trace(P)}\sum_{i=1}^{\trace(P)}\ket{\phi_i}\bra{\phi_i}\]
+          for orthonormal basis $\set{\ket{\phi_i}}$
+    \item Ensemble of pure states
+          \[\set{p_i, \ket{\phi_i}} \to P = \sum p_i\ket{\phi_i}\bra{\phi_i}\]
+          e.g. $\frac{1}{2}\ket{0}\bra{0} + \frac{1}{2}\ket{1}\bra{1} = \frac{1}{2} = \frac{1}{2}\ket{+}\bra{+} + \frac{1}{2}\ket{-}\bra{-}$
+\end{enumerate}
+
+\begin{definition}[Product State]
+    Let $\rho \in D(\complexnums^n)$ and $\sigma\in D(\complexnums^m)$, then $\rho \tensorprod \sigma \in D(\complexnums^{n \times m})$.
+\end{definition}
+
+Since $\trace(A\tensorprod B) = \trace(A)\trace(B)$, $\trace(\rho\tensorprod \sigma) = \trace(\rho)\trace(\sigma) = 1$.
+Then $\rho \geq 0$, $\sigma \geq 0$ implies $\rho \tensorprod \sigma \geq 0$.
+
+\subsection{Join States/Density Operator}
+Denote $H_A = \complexnums^n$ and $H_B = \complexnums^m$. A density operator
+$\rho_{ab} \in \boundop{H_A \tensorprod H_B}$ is called a joint density operator
+(states over a joint system) $AB$.
+
+\begin{example}
+    With $\rho\in D(H_A)$ and $\sigma \in D(H_B)$
+    \begin{enumerate}
+        \item $\rho \tensorprod \sigma$, with
+              \begin{align*}
+                  \rho   & = \frac{1}{4}\ket{0}\bra{0} + \frac{3}{4}\ket{1}\bra{1}  \\
+                         & =\begin{bmatrix}\frac{1}{4} & 0\\0 & \frac{3}{4}\end{bmatrix}                              \\
+                  \sigma & = \frac{1}{3}\ket{+}\bra{+} + \frac{2}{3}\ket{-}\bra{-1} \\
+                         & = \begin{bmatrix}\frac{1}{2} & -\frac{1}{6}\\-\frac{1}{6} & \frac{1}{2}\end{bmatrix}
+              \end{align*}
+              then
+              \[\rho \tensorprod \sigma = \begin{bmatrix}\frac{1}{4}\cdot\sigma & 0\cdot \sigma\\0\cdot\sigma&\frac{3}{4}\cdot\sigma\end{bmatrix} = \begin{bmatrix}\frac{1}{8} & -\frac{1}{24} & 0 & 0\\-\frac{1}{24} & \frac{1}{8} & 0 & 0\\0 & 0 & \frac{3}{8} & \frac{1}{8}\\0 & 0 & -\frac{1}{8} & \frac{3}{8}\end{bmatrix}\]
+        \item Separable state $w = \sum \lambda_i \rho_i \tensorprod \sigma_i$ with $\sum \lambda_i = 1$ and $\lambda_i \geq 0$
+    \end{enumerate}
+\end{example}
